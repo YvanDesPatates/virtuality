@@ -1,0 +1,1 @@
+### Il faut créer un IngredientType dans Ingredient Enum qui ait le même nom que la préfab. La préfab doit être placé dans le dossier Prefabs/Ingredients. C'est comme ça car le script IngredientManager.cs utilise va chercher automatiquement toutes les préfabs d'ingrédients à partir de l'énum.
