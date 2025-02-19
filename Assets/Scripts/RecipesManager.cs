@@ -20,7 +20,7 @@ public class RecipesManager : MonoBehaviour
             {
                 _ingredientsPrefabs.Remove(ingredient);
                 Debug.LogWarning(
-                    $"The ingredient prefab {ingredientName} was not found, be sure that is a normal behaviour");
+                    $"The ingredient prefab {ingredientName} was not found, be sure that this is a normal behaviour");
             }
         }
 
