@@ -51,7 +51,7 @@ public class CaldronMerger : MonoBehaviour
     
     private IEnumerator MergeIngredientsCoroutine()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(mergeTimeInSeconds);
         
         var ingredientList = new IngredientList(_ingredients).AddIngredient(IngredientType.Caldron);
         var ingredientResult = _recipesManager.GetRecipeResult(ingredientList);
