@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class RecipesManager : MonoBehaviour
@@ -14,8 +13,8 @@ public class RecipesManager : MonoBehaviour
         foreach (IngredientType ingredient in Enum.GetValues(typeof(IngredientType)))
         {
             String ingredientName = Enum.GetName(typeof(IngredientType), ingredient);
-            String path = $"Assets/Prefabs/Ingredients/{ingredientName}.prefab";
-            _ingredientsPrefabs[ingredient] = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            String path = $"Ingredients/{ingredientName}";
+            _ingredientsPrefabs[ingredient] = Resources.Load(path, typeof(GameObject)) as GameObject;
             if (_ingredientsPrefabs[ingredient] is null)
             {
                 _ingredientsPrefabs.Remove(ingredient);
