@@ -2,7 +2,7 @@
 
 La gestion des recettes et des ingrédients par du principe que tous les éléments sont des ingrédients, et que certains ingrédients peuvent être combinés pour en créer de nouveaux.
 
-Dans cette optique, même le chaudron est un ingrédient. Si aucune recettes ne peut fabriquer un chaudron, il suffit de le mettre dans une recette pour indiquer que cette recette doit être faite dans un chaudron
+Dans cette optique, même le chaudron est un ingrédient. Si aucune recettes ne peut fabriquer un chaudron, il suffit de le mettre dans une recette pour indiquer que cette recette doit être faite dans un chaudron.
 
 ## Ingrédients
 
@@ -10,7 +10,7 @@ Dans cette optique, même le chaudron est un ingrédient. Si aucune recettes ne 
 
 Chaque ingédient doit :
 - être référencé dans l'énumération `IngredientType` du script `IngredientsEnum.cs`
-- avoir une préfab portant le même nom exactement que son `IngredientType` et rangée dans le dossier `Prefabs/Ingredients`
+- avoir une préfab portant le même nom exactement que son `IngredientType` et rangée dans le dossier `Resources/Ingredients`
 - la préfab doit contenir un script qui hérite de `AbstractIngredient.cs`
 
 ### Ingrédients spéciaux :
@@ -24,6 +24,8 @@ Dans ce cas cet ingrédient ne doit jamais être le résultat d'une recette. Il 
 Hériter de [AbstractIngredient.cs](../Scripts/Ingredients/AbstractIngredient.cs) permet de bénéficier de la méthode `GetIngredientType()` qui retourne le type de l'ingrédient.
 Grâce à ça, quand on est dans un script qui veut merger des ingrédients comme [CaldronMerger.cs](../Scripts/CaldronMerger.cs),
 il suffit d'utiliser `GetComponent<AbstractIngredient>()` dans le `OnTriggerEnter` pour obtenir le type de l'ingrédient et s'en servir pour savoir quelles recettes valider ou non.
+
+Les préfabs d'ingrédients doivent être dans le dossier `Resources` car elles sont chargés dynamiquement grâce à leurs chemins dans le script [RecipesManager.cs](../Scripts/RecipesManager.cs). Ce processus ne peut se faire que depuis un Dossier `Resources` qui sera chargé en entier dans le build par Unity.
 
 ## Recettes
 
