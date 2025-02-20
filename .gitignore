@@ -1,7 +1,7 @@
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Jetbrains (Rider) config folder
-/.idea/
+.idea/
 #
 # Vscode settings
 /.vscode/
@@ -18,6 +18,8 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/*utmp/
+# utmp conatin build files generated when building an apk
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
