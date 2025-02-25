@@ -7,7 +7,7 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private int nbHalfTurnToMerge = 6;
     [SerializeField] private SpatulaDetection spatulaDetection;
     
-    private readonly List<AbstractIngredient> _ingredients = new();
+    private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
 
     private void Awake()
@@ -18,7 +18,7 @@ public class CaldronMerger : MonoBehaviour
     
     public void Merge()
     {
-        var ingredientList = new IngredientList(_ingredients).AddIngredient(IngredientType.Caldron);
+        var ingredientList = _ingredients.AddIngredient(IngredientType.Caldron);
         var ingredientResult = _recipesManager.GetRecipeResult(ingredientList);
         if (ingredientResult is not null)
         {
@@ -32,7 +32,7 @@ public class CaldronMerger : MonoBehaviour
         if (abstractIngredient != null)
         {
             spatulaDetection.ResetNbHalfTurns();
-            _ingredients.Add(abstractIngredient);
+            _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
         }
     }
     
@@ -42,18 +42,14 @@ public class CaldronMerger : MonoBehaviour
         if (abstractIngredient != null)
         {
             spatulaDetection.ResetNbHalfTurns();
-            _ingredients.Remove(abstractIngredient);
+            _ingredients.RemoveIngredient(abstractIngredient.GetIngredientType());
         }
     }
 
     private void MergeIngredients(GameObject ingredientResult)
     {
-        var positionToInstantiate = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-        foreach (AbstractIngredient ingredient in _ingredients)
-        {
-            Destroy(ingredient.gameObject);
-        }
-        _ingredients.Clear();
+        var positionToInstantiate = new Vector3(transform.position.x, transform.position.y + 1.3f, transform.position.z + 0.55f);
         Instantiate(ingredientResult, positionToInstantiate, Quaternion.identity);
+        _ingredients.Clear();
     }
 }
