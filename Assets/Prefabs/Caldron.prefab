@@ -284,7 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247fffa315e5ad6d4b4b02cf93b2c50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeTimeInSeconds: 3
+  nbHalfTurnToMerge: 6
+  spatulaDetection: {fileID: 9205946076339741271}
 --- !u!1 &4625830397480525681
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374cccb72793aaf66a13ac1d59373cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  caldronMerger: {fileID: 7062878717734817477}
 --- !u!1 &9185234804046231201
 GameObject:
   m_ObjectHideFlags: 0
