@@ -28,9 +28,17 @@ public class CaldronMerger : MonoBehaviour
         }
     }
 
-    public void RotationAnimationStart()
+    public void OnRotationAnimationStart()
     {
         caldronRigidbody.isKinematic = true;
+    }
+
+    public void OnRotationAnimationEnd()
+    {
+        
+        caldronRigidbody.isKinematic = false; 
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        
     }
 
     private void OnTriggerEnter(Collider other)

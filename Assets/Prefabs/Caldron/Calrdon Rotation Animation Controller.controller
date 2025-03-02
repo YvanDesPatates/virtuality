@@ -9,8 +9,8 @@ AnimatorController:
   m_Name: Calrdon Rotation Animation Controller
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: caldron_rotation_trigger
-    m_Type: 9
+  - m_Name: rotate
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -138,7 +138,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: caldron_rotation_trigger
+    m_ConditionEvent: rotate
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3061723038463283292}
@@ -149,7 +149,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
