@@ -5,7 +5,9 @@ public class CaldronMerger : MonoBehaviour
 {
     [Tooltip("Time in seconds to wait before merging the ingredients")]
     [SerializeField] private int nbHalfTurnToMerge = 6;
+    [Space]
     [SerializeField] private SpatulaDetection spatulaDetection;
+    [SerializeField] private Rigidbody caldronRigidbody;
     
     private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
@@ -26,6 +28,11 @@ public class CaldronMerger : MonoBehaviour
         }
     }
 
+    public void RotationAnimationStart()
+    {
+        caldronRigidbody.isKinematic = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
@@ -35,7 +42,7 @@ public class CaldronMerger : MonoBehaviour
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
