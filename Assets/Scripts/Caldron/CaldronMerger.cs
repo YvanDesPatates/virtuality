@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CaldronMerger : MonoBehaviour
 {
-    [Tooltip("Time in seconds to wait before merging the ingredients")]
+    [Tooltip("number of half turn the spatula has to do before merging the ingredients")]
     [SerializeField] private int nbHalfTurnToMerge = 6;
     [Space]
     [SerializeField] private SpatulaDetection spatulaDetection;
@@ -11,13 +11,29 @@ public class CaldronMerger : MonoBehaviour
     
     private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
+    private bool _resetRotation = false;
+    private Action _callbackForRotationEnd;
 
     private void Awake()
     {
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (_resetRotation)
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0, 0, 0), 0.25f);
+            _resetRotation = transform.localRotation != Quaternion.Euler(0, 0, 0);
+            // if the rotation is fully reset, we can call the callback to notify the animation trigger that the rotation is done
+            if (!_resetRotation)
+            {
+                _callbackForRotationEnd?.Invoke();
+            }
+        }
+    }
+
     public void Merge()
     {
         var ingredientList = _ingredients.AddIngredient(IngredientType.Caldron);
@@ -33,12 +49,12 @@ public class CaldronMerger : MonoBehaviour
         caldronRigidbody.isKinematic = true;
     }
 
-    public void OnRotationAnimationEnd()
+    public void OnRotationAnimationEnd(Action callback)
     {
         
         caldronRigidbody.isKinematic = false; 
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
-        
+        _resetRotation = true;
+        _callbackForRotationEnd = callback;
     }
 
     private void OnTriggerEnter(Collider other)

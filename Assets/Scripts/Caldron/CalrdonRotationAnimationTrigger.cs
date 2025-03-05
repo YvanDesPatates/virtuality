@@ -17,9 +17,13 @@ public class CalrdonRotationAnimationTrigger : MonoBehaviour
 
     private void Update()
     {
-        if ( !_animationIsRunning && caldronTransform.localRotation.x > rotationThreshold/100)
+        if (_animationIsRunning)
         {
             grabInteractable.DetachInteractor();
+        }
+        
+        if ( !_animationIsRunning && caldronTransform.localRotation.x > rotationThreshold/100)
+        {
             caldronMerger.OnRotationAnimationStart();
             animator.SetBool(CaldronRotationTrigger, true);
             _animationHasStartAndIsNoMoreAtTheBeginning = false;
@@ -35,8 +39,12 @@ public class CalrdonRotationAnimationTrigger : MonoBehaviour
         if ( _animationIsRunning && _animationHasStartAndIsNoMoreAtTheBeginning && transform.rotation.x == 0)
         {
             animator.SetBool(CaldronRotationTrigger, false);
-            _animationIsRunning = false;
-            caldronMerger.OnRotationAnimationEnd();
+            caldronMerger.OnRotationAnimationEnd(OnRotationFullyFinished);
         }
+    }
+
+    private void OnRotationFullyFinished()
+    {
+        _animationIsRunning = false;
     }
 }
