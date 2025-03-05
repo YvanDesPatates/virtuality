@@ -13,22 +13,30 @@ public class CalrdonRotationAnimationTrigger : MonoBehaviour
     [SerializeField] private Animator animator;
 
     private bool _animationIsRunning = false;
+    private bool _animationHasStartAndIsNoMoreAtTheBeginning = false;
 
     private void Update()
     {
-        // stop the animation, otherwise it's stuck in a loop
-        if ( _animationIsRunning && transform.rotation.x == 0)
-        {
-            animator.SetBool(CaldronRotationTrigger, false);
-            _animationIsRunning = false;
-            caldronMerger.OnRotationAnimationEnd();
-        }
         if ( !_animationIsRunning && caldronTransform.localRotation.x > rotationThreshold/100)
         {
             grabInteractable.DetachInteractor();
             caldronMerger.OnRotationAnimationStart();
             animator.SetBool(CaldronRotationTrigger, true);
+            _animationHasStartAndIsNoMoreAtTheBeginning = false;
             _animationIsRunning = true;
+        }
+
+        if (_animationIsRunning && transform.localRotation.x > 0.1)
+        {
+            _animationHasStartAndIsNoMoreAtTheBeginning = true;
+        }
+        
+        // stop the animation, otherwise it's stuck in a loop
+        if ( _animationIsRunning && _animationHasStartAndIsNoMoreAtTheBeginning && transform.rotation.x == 0)
+        {
+            animator.SetBool(CaldronRotationTrigger, false);
+            _animationIsRunning = false;
+            caldronMerger.OnRotationAnimationEnd();
         }
     }
 }
