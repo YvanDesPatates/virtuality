@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7748221532512460005}
+  - component: {fileID: 1211003982852211863}
+  - component: {fileID: 4969669265080961848}
   m_Layer: 0
   m_Name: Caldron Rotative
   m_TagString: Untagged
@@ -32,6 +34,45 @@ Transform:
   - {fileID: 4601774242348434235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1211003982852211863
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476275302366100841}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96a77df87c5b12b548c0d3416b7e9897, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4969669265080961848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476275302366100841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475bb112299bfcb45886856ac81673de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationThreshold: 20
+  caldronMerger: {fileID: 6062940247215004591}
+  caldronTransform: {fileID: 4601774242348434235}
+  grabInteractable: {fileID: 2865757313176126993}
+  animator: {fileID: 1211003982852211863}
 --- !u!1001 &3902235820788766058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84,6 +125,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caldron
       objectReference: {fileID: 0}
+    - target: {fileID: 7062878717734817477, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
+      propertyPath: caldronRigidbody
+      value: 
+      objectReference: {fileID: 3989854174803044454}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -125,7 +170,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -297,3 +342,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 719256007210161745, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
   m_PrefabInstance: {fileID: 3902235820788766058}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6062940247215004591 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7062878717734817477, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
+  m_PrefabInstance: {fileID: 3902235820788766058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2468577890528802999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247fffa315e5ad6d4b4b02cf93b2c50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
