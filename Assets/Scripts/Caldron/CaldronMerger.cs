@@ -8,6 +8,7 @@ public class CaldronMerger : MonoBehaviour
     [Space]
     [SerializeField] private SpatulaDetection spatulaDetection;
     [SerializeField] private Rigidbody caldronRigidbody;
+    [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
     
     private readonly IngredientList _ingredients = new();
@@ -26,8 +27,8 @@ public class CaldronMerger : MonoBehaviour
     {
         if (_resetRotation)
         {
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0, 0, 0), 0.25f);
-            _resetRotation = transform.localRotation != Quaternion.Euler(0, 0, 0);
+            caldronTransform.localRotation = Quaternion.Slerp(caldronTransform.localRotation, Quaternion.Euler(0, 0, 0), 0.25f);
+            _resetRotation = caldronTransform.localRotation != Quaternion.Euler(0, 0, 0);
             // if the rotation is fully reset, we can call the callback to notify the animation trigger that the rotation is done
             if (!_resetRotation)
             {
@@ -89,7 +90,7 @@ public class CaldronMerger : MonoBehaviour
 
     private void MergeIngredients(GameObject ingredientResult)
     {
-        var positionToInstantiate = new Vector3(transform.position.x, transform.position.y + 1.3f, transform.position.z + 0.55f);
+        var positionToInstantiate = new Vector3(caldronTransform.position.x, caldronTransform.position.y + 1.3f, caldronTransform.position.z + 0.55f);
         Instantiate(ingredientResult, positionToInstantiate, Quaternion.identity);
         _ingredients.Clear();
     }

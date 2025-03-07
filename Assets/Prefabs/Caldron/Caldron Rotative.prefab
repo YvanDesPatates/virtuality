@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7748221532512460005}
   - component: {fileID: 1211003982852211863}
   - component: {fileID: 4969669265080961848}
+  - component: {fileID: 279292175279148034}
+  - component: {fileID: 4405142506826189242}
   m_Layer: 0
   m_Name: Caldron Rotative
   m_TagString: Untagged
@@ -69,10 +71,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationThreshold: 20
-  caldronMerger: {fileID: 6062940247215004591}
+  caldronMerger: {fileID: 4405142506826189242}
   caldronTransform: {fileID: 4601774242348434235}
   grabInteractable: {fileID: 2865757313176126993}
   animator: {fileID: 1211003982852211863}
+--- !u!65 &279292175279148034
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476275302366100841}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.588943, y: 0.41065985, z: 0.46645048}
+  m_Center: {x: 0.03764075, y: 0.04510368, z: -0.003955066}
+--- !u!114 &4405142506826189242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476275302366100841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247fffa315e5ad6d4b4b02cf93b2c50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nbHalfTurnToMerge: 6
+  spatulaDetection: {fileID: 5324822541570340669}
+  caldronRigidbody: {fileID: 3989854174803044454}
+  caldronTransform: {fileID: 4601774242348434235}
+  waterEmptyingSound: {fileID: 6992830640757485991}
 --- !u!1001 &3902235820788766058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,7 +173,13 @@ PrefabInstance:
       propertyPath: waterEmptyingSound
       value: 
       objectReference: {fileID: 6992830640757485991}
-    m_RemovedComponents: []
+    - target: {fileID: 9205946076339741271, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
+      propertyPath: caldronMerger
+      value: 
+      objectReference: {fileID: 4405142506826189242}
+    m_RemovedComponents:
+    - {fileID: 2669898203945974972, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
+    - {fileID: 7062878717734817477, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -446,14 +492,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 719256007210161745, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
   m_PrefabInstance: {fileID: 3902235820788766058}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6062940247215004591 stripped
+--- !u!114 &5324822541570340669 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7062878717734817477, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9205946076339741271, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
   m_PrefabInstance: {fileID: 3902235820788766058}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2468577890528802999}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 247fffa315e5ad6d4b4b02cf93b2c50d, type: 3}
+  m_Script: {fileID: 11500000, guid: 374cccb72793aaf66a13ac1d59373cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
