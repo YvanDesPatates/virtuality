@@ -32,6 +32,7 @@ public class CaldronMerger : MonoBehaviour
             if (!_resetRotation)
             {
                 _callbackForRotationEnd?.Invoke();
+                caldronRigidbody.isKinematic = true;
             }
         }
     }
@@ -60,6 +61,7 @@ public class CaldronMerger : MonoBehaviour
     {
         
         caldronRigidbody.isKinematic = false; 
+        caldronRigidbody.isKinematic = false;
         _resetRotation = true;
         _callbackForRotationEnd = callback;
         _readyToEmpty = true;
