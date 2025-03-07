@@ -25,6 +25,7 @@ public class DistanceReleaseGrabInteractable: XRGrabInteractable
     {
         if (_cachedInteractor != null)
         {
+            _cachedInteractor.transform.position = Input.mousePosition; 
             if (Vector3.Distance(_cachedInteractor.transform.position, transform.position) <= maxGrabDistance)
             {
                 interactionManager.SelectExit(_cachedInteractor, this);

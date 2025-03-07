@@ -8,10 +8,12 @@ public class CaldronMerger : MonoBehaviour
     [Space]
     [SerializeField] private SpatulaDetection spatulaDetection;
     [SerializeField] private Rigidbody caldronRigidbody;
+    [SerializeField] private AudioSource waterEmptyingSound;
     
     private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
     private bool _resetRotation = false;
+    private bool _readyToEmpty = true;
     private Action _callbackForRotationEnd;
 
     private void Awake()
@@ -49,12 +51,18 @@ public class CaldronMerger : MonoBehaviour
         caldronRigidbody.isKinematic = true;
     }
 
+    public void OnRotationMaxAngleReached()
+    {
+        Empty();
+    }
+
     public void OnRotationAnimationEnd(Action callback)
     {
         
         caldronRigidbody.isKinematic = false; 
         _resetRotation = true;
         _callbackForRotationEnd = callback;
+        _readyToEmpty = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -82,5 +90,15 @@ public class CaldronMerger : MonoBehaviour
         var positionToInstantiate = new Vector3(transform.position.x, transform.position.y + 1.3f, transform.position.z + 0.55f);
         Instantiate(ingredientResult, positionToInstantiate, Quaternion.identity);
         _ingredients.Clear();
+    }
+
+    private void Empty()
+    {
+        if (_readyToEmpty)
+        {
+            _ingredients.Clear();
+            waterEmptyingSound.Play();
+            _readyToEmpty = false;   
+        }
     }
 }

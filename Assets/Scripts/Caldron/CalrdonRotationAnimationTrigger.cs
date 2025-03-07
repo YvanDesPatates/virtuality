@@ -30,9 +30,10 @@ public class CalrdonRotationAnimationTrigger : MonoBehaviour
             _animationIsRunning = true;
         }
 
-        if (_animationIsRunning && transform.localRotation.x > 0.1)
+        if (_animationIsRunning && transform.localRotation.x > 0.3)
         {
             _animationHasStartAndIsNoMoreAtTheBeginning = true;
+            caldronMerger.OnRotationMaxAngleReached();
         }
         
         // stop the animation, otherwise it's stuck in a loop

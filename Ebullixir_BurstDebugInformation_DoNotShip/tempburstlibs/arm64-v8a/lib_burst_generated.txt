@@ -1,4 +1,4 @@
-Library: /Users/lucascasado/Desktop/virtuality/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+Library: /home/rouxy/Unity/projects/virtuality/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
 --platform=Android
 --backend=burst-llvm-18
 --target=ARMV8A_AARCH64
@@ -10,10 +10,10 @@ Library: /Users/lucascasado/Desktop/virtuality/Temp/BurstOutput/tempburstlibs/ar
 --target-framework=NetFramework
 --float-mode=Fast
 --generate-link-xml=Temp/burst.link.xml
---temp-folder=/Users/lucascasado/Desktop/virtuality/Temp/Burst
---key-folder=/Applications/Unity/Hub/Editor/6000.0.38f1/PlaybackEngines/AndroidPlayer
---decode-folder=/Users/lucascasado/Desktop/virtuality/Library/Burst
---output=/Users/lucascasado/Desktop/virtuality/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+--temp-folder=/home/rouxy/Unity/projects/virtuality/Temp/Burst
+--key-folder=/home/rouxy/Unity/Hub/Editor/6000.0.38f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--decode-folder=/home/rouxy/Unity/projects/virtuality/Library/Burst
+--output=/home/rouxy/Unity/projects/virtuality/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobForExtensions+ForJobStruct`1[[UnityEngine.Rendering.Universal.ZBinningJob, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.Rendering.Universal.ZBinningJob&, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--77fc393cb521ac129b1392d4eb94d29a
@@ -27,10 +27,10 @@ Library: /Users/lucascasado/Desktop/virtuality/Temp/BurstOutput/tempburstlibs/ar
 --float-precision=Standard
 --target-framework=NetFramework
 --generate-link-xml=Temp/burst.link.xml
---temp-folder=/Users/lucascasado/Desktop/virtuality/Temp/Burst
---key-folder=/Applications/Unity/Hub/Editor/6000.0.38f1/PlaybackEngines/AndroidPlayer
---decode-folder=/Users/lucascasado/Desktop/virtuality/Library/Burst
---output=/Users/lucascasado/Desktop/virtuality/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+--temp-folder=/home/rouxy/Unity/projects/virtuality/Temp/Burst
+--key-folder=/home/rouxy/Unity/Hub/Editor/6000.0.38f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--decode-folder=/home/rouxy/Unity/projects/virtuality/Library/Burst
+--output=/home/rouxy/Unity/projects/virtuality/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobExtensions+JobStruct`1[[UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Jobs.Float4TweenJob, Unity.XR.Interaction.Toolkit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Jobs.Float4TweenJob&, Unity.XR.Interaction.Toolkit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--34aec427743d7d01c0cb7a219c9fbe32
@@ -112,10 +112,10 @@ Library: /Users/lucascasado/Desktop/virtuality/Temp/BurstOutput/tempburstlibs/ar
 --float-precision=Standard
 --target-framework=NetFramework
 --generate-link-xml=Temp/burst.link.xml
---temp-folder=/Users/lucascasado/Desktop/virtuality/Temp/Burst
---key-folder=/Applications/Unity/Hub/Editor/6000.0.38f1/PlaybackEngines/AndroidPlayer
---decode-folder=/Users/lucascasado/Desktop/virtuality/Library/Burst
---output=/Users/lucascasado/Desktop/virtuality/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+--temp-folder=/home/rouxy/Unity/projects/virtuality/Temp/Burst
+--key-folder=/home/rouxy/Unity/Hub/Editor/6000.0.38f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--decode-folder=/home/rouxy/Unity/projects/virtuality/Library/Burst
+--output=/home/rouxy/Unity/projects/virtuality/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=UnityEngine.XR.Hands.Gestures.XRHandOrientationUtility, Unity.XR.Hands, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::GetHandAxisDirection(Unity.Mathematics.float3&, Unity.Mathematics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|UnityEngine.XR.Hands.Gestures.XRHandAxis, Unity.XR.Hands, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|Unity.Mathematics.quaternion&, Unity.Mathematics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--0ef4d50576f0f00022da4f79ae773f01
