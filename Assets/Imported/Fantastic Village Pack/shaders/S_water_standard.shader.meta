@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 152e7c1324e654e4ab75aa5d4be56b7d
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _WaveGuide: {fileID: 2800000, guid: fffdfa0c46d588b4b9c063e7c053da86, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
