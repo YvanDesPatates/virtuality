@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class CaldronMerger : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class CaldronMerger : MonoBehaviour
     
     private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
+    private GameObject _recipeResult;
+    
     private bool _resetRotation = false;
     private bool _readyToEmpty = true;
     private Action _callbackForRotationEnd;
@@ -75,6 +78,12 @@ public class CaldronMerger : MonoBehaviour
         {   
             spatulaDetection.ResetNbHalfTurns();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
+            return;
+        }
+
+        if (other.CompareTag("Empty_Bottle"))
+        {
+            ReplaceEmptyBottleWithLastRecipe(other.gameObject);
         }
     }
 
@@ -90,8 +99,7 @@ public class CaldronMerger : MonoBehaviour
 
     private void MergeIngredients(GameObject ingredientResult)
     {
-        var positionToInstantiate = new Vector3(caldronTransform.position.x, caldronTransform.position.y + 1.3f, caldronTransform.position.z + 0.55f);
-        Instantiate(ingredientResult, positionToInstantiate, Quaternion.identity);
+        _recipeResult = ingredientResult;
         _ingredients.Clear();
     }
 
@@ -103,5 +111,21 @@ public class CaldronMerger : MonoBehaviour
             waterEmptyingSound.Play();
             _readyToEmpty = false;   
         }
+    }
+    
+    private void ReplaceEmptyBottleWithLastRecipe(GameObject emptyBottle)
+    {
+        var grabInteractable = emptyBottle.GetComponent<PersonalizedGrabInteractable>();
+        if (grabInteractable is null)
+        {
+            return;   
+        }
+        
+        var position = emptyBottle.transform.position;
+        var rotation = emptyBottle.transform.rotation;
+        var interactor = grabInteractable.DetachInteractor();
+        Destroy(emptyBottle);
+        var recipeResult = Instantiate(_recipeResult, position, rotation);
+        recipeResult.GetComponent<PersonalizedGrabInteractable>().AttachInteractor(interactor);
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Anchor
   - Caldron_Spatula
+  - Empty_Bottle
   layers:
   - Default
   - TransparentFX
