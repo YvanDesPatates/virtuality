@@ -72,7 +72,7 @@ public class CaldronMerger : MonoBehaviour
     {
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
         if (abstractIngredient != null)
-        {
+        {   
             spatulaDetection.ResetNbHalfTurns();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
         }
