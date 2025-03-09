@@ -43,12 +43,13 @@ GameObject:
   - component: {fileID: 1369303546881288877}
   - component: {fileID: 7952152896093917339}
   - component: {fileID: 4424559612516002914}
+  - component: {fileID: 5448470841588074057}
   m_Layer: 0
   m_Name: P_PROP_bottle_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1369303546881288877
 Transform:
@@ -118,6 +119,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5448470841588074057
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2691999785432144062}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8536240351367062787, guid: 7f64bd53edc8dd94caccf697da85ab63, type: 3}
 --- !u!1 &3429163145882502466
 GameObject:
   m_ObjectHideFlags: 0
