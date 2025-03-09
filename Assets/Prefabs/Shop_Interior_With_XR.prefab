@@ -38,6 +38,7 @@ Transform:
   - {fileID: 3282110337665944996}
   - {fileID: 52455087347567853}
   - {fileID: 6423727953233138100}
+  - {fileID: 9219536158570419384}
   - {fileID: 7524741959708549473}
   - {fileID: 897904490400739273}
   m_Father: {fileID: 0}
@@ -1095,7 +1096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7524741959708549473}
   m_Layer: 0
-  m_Name: Caldron
+  m_Name: Caldron rotation axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1116,7 +1117,6 @@ Transform:
   m_Children:
   - {fileID: 6006830560092341042}
   - {fileID: 7087571236666150038}
-  - {fileID: 9219536158570419384}
   m_Father: {fileID: 2931437262797288775}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8168331257563375934
@@ -2513,7 +2513,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7524741959708549473}
+    m_TransformParent: {fileID: 2931437262797288775}
     m_Modifications:
     - target: {fileID: 4601774242348434235, guid: 9cb7fe96e6fcd83e1909af953f247ae8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2529,15 +2529,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7748221532512460005, guid: 9cb7fe96e6fcd83e1909af953f247ae8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.6185303
       objectReference: {fileID: 0}
     - target: {fileID: 7748221532512460005, guid: 9cb7fe96e6fcd83e1909af953f247ae8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.12161255
       objectReference: {fileID: 0}
     - target: {fileID: 7748221532512460005, guid: 9cb7fe96e6fcd83e1909af953f247ae8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.55513
       objectReference: {fileID: 0}
     - target: {fileID: 7748221532512460005, guid: 9cb7fe96e6fcd83e1909af953f247ae8, type: 3}
       propertyPath: m_LocalRotation.w
