@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -10,14 +9,12 @@ public class PersonalizedGrabInteractable: XRGrabInteractable
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-        GetComponent<Rigidbody>().isKinematic = false;
         _cachedInteractor = args.interactorObject;
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
-        GetComponent<Rigidbody>().isKinematic = true;
         _cachedInteractor = null;
     }
 
