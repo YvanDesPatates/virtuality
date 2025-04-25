@@ -1,83 +1,32 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class LeverController : AbstractGrabEventReceiver
+public class LeverController : MonoBehaviour
 {
-    [SerializeField] private GameObject handleBar;
     [SerializeField] private LeverAction leverAction;
-    [SerializeField] private PersonalizedGrabInteractable grabInteractable;
+    [SerializeField] private LeverGrabInteractable grabInteractable;
+    [SerializeField] private float maxGlobalZPostion;
 
-    private Transform _handleBarTransform;
-    private Rigidbody _handleBarRb;
-    private bool _animationIsRunning = false;
     private bool handleBarReachedMaxAngle = false;
+    private float _minGlobalZPostion;
 
     public void Start()
     {
-        _handleBarTransform = handleBar.transform;
-        _handleBarRb = Util.GetComponentOrLogError<Rigidbody>(handleBar);
+        grabInteractable.SetMaxGlobalZPostion(maxGlobalZPostion);
+        _minGlobalZPostion = transform.position.z;
     }
 
     public void Update()
     {
-        if (! _animationIsRunning && _handleBarTransform.localEulerAngles.x > 3)
+        if (!handleBarReachedMaxAngle && transform.position.z >= maxGlobalZPostion)
         {
-            StartAnimation();
-        }
-        
-        if (_animationIsRunning && ! handleBarReachedMaxAngle)
-        {
-            Quaternion targetRotation = Quaternion.Euler(45, 0, 0);
-            _handleBarTransform.localRotation = Quaternion.Slerp(_handleBarTransform.localRotation, targetRotation, Time.deltaTime * 2);
-            if (_handleBarTransform.localRotation == targetRotation)
-            {
-                handleBarReachedMaxAngle = true;
-                if (leverAction is not null)
-                {
-                    leverAction.LeverWasPulled();
-                }
-            }
+            handleBarReachedMaxAngle = true;
         }
 
-        if (_animationIsRunning && handleBarReachedMaxAngle)
+        if (handleBarReachedMaxAngle && transform.position.z <= _minGlobalZPostion)
         {
-            Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
-            _handleBarTransform.localRotation = Quaternion.Slerp(_handleBarTransform.localRotation, targetRotation, Time.deltaTime * 2);
-            if (_handleBarTransform.localRotation == targetRotation)
-            {
-                StopAnimation();
-            }
+            handleBarReachedMaxAngle = false;
+            leverAction.LeverWasPulled();
         }
-    }
-
-    public override void OnGrabExit()
-    {
-        if ( ! _animationIsRunning)
-        {
-            _handleBarRb.isKinematic = true;
-        }
-    }
-
-    public override void OnGrabEnter()
-    {
-        if ( ! _animationIsRunning)
-        {
-            _handleBarRb.isKinematic = false;
-        }
-    }
-
-    private void StartAnimation()
-    {
-        grabInteractable.DetachInteractor();
-        grabInteractable.enabled = false;
-        _handleBarRb.isKinematic = false;
-        _animationIsRunning = true;
-    }
-
-    private void StopAnimation()
-    {
-        _animationIsRunning = false;
-        handleBarReachedMaxAngle = false;
-        grabInteractable.enabled = true;
-        _handleBarRb.isKinematic = true;
     }
 }
