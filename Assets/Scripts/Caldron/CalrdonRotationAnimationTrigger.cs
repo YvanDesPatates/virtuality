@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CalrdonRotationAnimationTrigger : LeverAction
@@ -5,6 +6,7 @@ public class CalrdonRotationAnimationTrigger : LeverAction
     [SerializeField] private CaldronMerger caldronMerger;
     [SerializeField] private float maxLocalXRotation;
     [SerializeField] private float rotationSpeed = 2f;
+    [SerializeField] private float midAnimationPauseInSeconds = 1.5f;
 
     private bool _animationIsRunning = false;
     private bool _maxXRotationWasReached = false;
@@ -24,7 +26,7 @@ public class CalrdonRotationAnimationTrigger : LeverAction
 
             if (!_maxXRotationWasReached)
             {
-                // Aller vers maxLocalXRotation
+                // go to maxLocalXRotation
                 Quaternion targetRotation = Quaternion.Euler(maxLocalXRotation, 0, 0);
                 caldronMerger.transform.localRotation = Quaternion.RotateTowards(
                     caldronMerger.transform.localRotation,
@@ -36,18 +38,19 @@ public class CalrdonRotationAnimationTrigger : LeverAction
                 {
                     caldronMerger.OnRotationMaxAngleReached();
                     _maxXRotationWasReached = true;
+                    StartCoroutine(DoAPauseInAnimation());
                 }
             }
             else
             {
-                // Retourner à minLocalXRotation
+                // Return to minLocalXRotation
                 Quaternion targetRotation = Quaternion.Euler(_minXLocalRotation, 0, 0);
                 caldronMerger.transform.localRotation = Quaternion.RotateTowards(
                     caldronMerger.transform.localRotation,
                     targetRotation,
                     rotationSpeed * Time.deltaTime
                 );
-
+                
                 if (Mathf.Abs(currentXRotation - _minXLocalRotation) < 0.1f)
                 {
                     OnRotationFullyFinished();
@@ -69,5 +72,12 @@ public class CalrdonRotationAnimationTrigger : LeverAction
         caldronMerger.transform.localRotation = Quaternion.Euler(_minXLocalRotation, 0, 0);
         _maxXRotationWasReached = false;
         _animationIsRunning = false;
+    }
+    
+    private IEnumerator DoAPauseInAnimation()
+    {
+        _animationIsRunning = false;
+        yield return new WaitForSeconds(midAnimationPauseInSeconds);
+        _animationIsRunning = true;
     }
 }
