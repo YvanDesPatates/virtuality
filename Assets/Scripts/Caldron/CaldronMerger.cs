@@ -8,7 +8,6 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private int nbHalfTurnToMerge = 6;
     [Space]
     [SerializeField] private SpatulaDetection spatulaDetection;
-    [SerializeField] private Rigidbody caldronRigidbody;
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
     
@@ -16,29 +15,10 @@ public class CaldronMerger : MonoBehaviour
     private RecipesManager _recipesManager;
     private GameObject _recipeResult;
     
-    private bool _resetRotation = false;
-    private bool _readyToEmpty = true;
-    private Action _callbackForRotationEnd;
-
     private void Awake()
     {
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
-    }
-
-    private void FixedUpdate()
-    {
-        if (_resetRotation)
-        {
-            caldronTransform.localRotation = Quaternion.Slerp(caldronTransform.localRotation, Quaternion.Euler(0, 0, 0), 0.25f);
-            _resetRotation = caldronTransform.localRotation != Quaternion.Euler(0, 0, 0);
-            // if the rotation is fully reset, we can call the callback to notify the animation trigger that the rotation is done
-            if (!_resetRotation)
-            {
-                _callbackForRotationEnd?.Invoke();
-                caldronRigidbody.isKinematic = true;
-            }
-        }
     }
 
     public void Merge()
@@ -51,24 +31,9 @@ public class CaldronMerger : MonoBehaviour
         }
     }
 
-    public void OnRotationAnimationStart()
-    {
-        caldronRigidbody.isKinematic = true;
-    }
-
     public void OnRotationMaxAngleReached()
     {
         Empty();
-    }
-
-    public void OnRotationAnimationEnd(Action callback)
-    {
-        
-        caldronRigidbody.isKinematic = false; 
-        caldronRigidbody.isKinematic = false;
-        _resetRotation = true;
-        _callbackForRotationEnd = callback;
-        _readyToEmpty = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -105,12 +70,8 @@ public class CaldronMerger : MonoBehaviour
 
     private void Empty()
     {
-        if (_readyToEmpty)
-        {
-            _ingredients.Clear();
-            waterEmptyingSound.Play();
-            _readyToEmpty = false;   
-        }
+        _ingredients.Clear();
+        waterEmptyingSound.Play();
     }
     
     private void ReplaceEmptyBottleWithLastRecipe(GameObject emptyBottle)

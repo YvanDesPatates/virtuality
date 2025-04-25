@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class CalrdonRotationAnimationTrigger : LeverAction
 {
-    private static readonly int CaldronRotationTrigger = Animator.StringToHash("rotate");
-    
     [SerializeField] private CaldronMerger caldronMerger;
-    [SerializeField] private Transform caldronTransform;
-    [SerializeField] private Animator animator;
+    [SerializeField] private float maxLocalXRotation;
+    [SerializeField] private float rotationSpeed = 2f;
 
     private bool _animationIsRunning = false;
-    private bool _animationHasStartAndIsNoMoreAtTheBeginning = false;
+    private bool _maxXRotationWasReached = false;
+    private float _minXLocalRotation;
 
     public override void LeverWasPulled()
     {
+        _minXLocalRotation = caldronMerger.transform.localRotation.eulerAngles.x;
         StartAnimation();
     }
 
@@ -20,17 +20,38 @@ public class CalrdonRotationAnimationTrigger : LeverAction
     {
         if (_animationIsRunning)
         {
-            if (caldronTransform.localRotation.x > 0.3)
-            {
-                _animationHasStartAndIsNoMoreAtTheBeginning = true;
-                caldronMerger.OnRotationMaxAngleReached();
-            }
+            float currentXRotation = caldronMerger.transform.localRotation.eulerAngles.x;
 
-            // stop the animation, otherwise it's stuck in a loop
-            if (_animationHasStartAndIsNoMoreAtTheBeginning && caldronTransform.localRotation.x == 0)
+            if (!_maxXRotationWasReached)
             {
-                animator.SetBool(CaldronRotationTrigger, false);
-                caldronMerger.OnRotationAnimationEnd(OnRotationFullyFinished);
+                // Aller vers maxLocalXRotation
+                Quaternion targetRotation = Quaternion.Euler(maxLocalXRotation, 0, 0);
+                caldronMerger.transform.localRotation = Quaternion.RotateTowards(
+                    caldronMerger.transform.localRotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
+
+                if (Mathf.Abs(currentXRotation - maxLocalXRotation) < 0.1f)
+                {
+                    caldronMerger.OnRotationMaxAngleReached();
+                    _maxXRotationWasReached = true;
+                }
+            }
+            else
+            {
+                // Retourner à minLocalXRotation
+                Quaternion targetRotation = Quaternion.Euler(_minXLocalRotation, 0, 0);
+                caldronMerger.transform.localRotation = Quaternion.RotateTowards(
+                    caldronMerger.transform.localRotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
+
+                if (Mathf.Abs(currentXRotation - _minXLocalRotation) < 0.1f)
+                {
+                    OnRotationFullyFinished();
+                }
             }
         }
     }
@@ -39,15 +60,14 @@ public class CalrdonRotationAnimationTrigger : LeverAction
     {
         if (!_animationIsRunning)
         {
-            caldronMerger.OnRotationAnimationStart();
-            animator.SetBool(CaldronRotationTrigger, true);
-            _animationHasStartAndIsNoMoreAtTheBeginning = false;
             _animationIsRunning = true;
         }
     }
 
     private void OnRotationFullyFinished()
     {
+        caldronMerger.transform.localRotation = Quaternion.Euler(_minXLocalRotation, 0, 0);
+        _maxXRotationWasReached = false;
         _animationIsRunning = false;
     }
 }
