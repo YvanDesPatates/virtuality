@@ -21,7 +21,10 @@ public class CaldronMerger : MonoBehaviour
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
     }
 
-    public void Merge()
+    /// <summary>
+    /// when called, all the ingredients are merged into the corresponding recipe result, if there is one.
+    /// </summary>
+    public void FinishRecipe()
     {
         var ingredientList = _ingredients.AddIngredient(IngredientType.Caldron);
         var ingredientResult = _recipesManager.GetRecipeResult(ingredientList);
@@ -36,6 +39,10 @@ public class CaldronMerger : MonoBehaviour
         Empty();
     }
 
+    /// <summary>
+    /// each time an ingredient enters the caldron, it is added to the list of ingredients.
+    /// if there is a recipe result waiting to be transferred in a bottle, it is set to null.
+    /// </summary>
     private void OnTriggerEnter(Collider other)
     {
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
@@ -43,6 +50,7 @@ public class CaldronMerger : MonoBehaviour
         {   
             spatulaDetection.ResetNbHalfTurns();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
+            _recipeResult = null;
             return;
         }
 
@@ -71,16 +79,18 @@ public class CaldronMerger : MonoBehaviour
     private void Empty()
     {
         _ingredients.Clear();
+        _recipeResult = null;
         waterEmptyingSound.Play();
     }
     
+    /// <summary>
+    /// fill a bottle with the last recipe result. Set the recipe result to null because a recipe fill only one bottle.
+    /// </summary>
     private void ReplaceEmptyBottleWithLastRecipe(GameObject emptyBottle)
     {
+        if (_recipeResult is null) return;
         var grabInteractable = emptyBottle.GetComponent<PersonalizedGrabInteractable>();
-        if (grabInteractable is null)
-        {
-            return;   
-        }
+        if (grabInteractable is null) return;
         
         var position = emptyBottle.transform.position;
         var rotation = emptyBottle.transform.rotation;
@@ -88,5 +98,7 @@ public class CaldronMerger : MonoBehaviour
         Destroy(emptyBottle);
         var recipeResult = Instantiate(_recipeResult, position, rotation);
         recipeResult.GetComponent<PersonalizedGrabInteractable>().AttachInteractor(interactor);
+
+        _recipeResult = null;
     }
 }
