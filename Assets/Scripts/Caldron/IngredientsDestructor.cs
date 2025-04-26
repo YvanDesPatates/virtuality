@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Destroys the ingredient when it enters the trigger and is not grabbed.
+/// </summary>
 public class IngredientsDestructor : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
@@ -7,7 +10,11 @@ public class IngredientsDestructor : MonoBehaviour
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
         if (abstractIngredient != null)
         {
-            Destroy(other.gameObject);
+            PersonalizedGrabInteractable grabInteractable = other.GetComponent<PersonalizedGrabInteractable>();
+            if (grabInteractable is not null && !grabInteractable.IsGrabbed())
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 }

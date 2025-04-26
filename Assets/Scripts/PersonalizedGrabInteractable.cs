@@ -51,4 +51,9 @@ public class PersonalizedGrabInteractable: XRGrabInteractable
             interactionManager.SelectEnter(interactor, this);
         }
     }
+    
+    public bool IsGrabbed()
+    {
+        return _cachedInteractor != null;
+    }
 }
