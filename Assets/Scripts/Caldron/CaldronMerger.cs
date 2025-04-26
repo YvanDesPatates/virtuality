@@ -1,5 +1,6 @@
-using System.Collections;
+using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class CaldronMerger : MonoBehaviour
 {
@@ -13,10 +14,6 @@ public class CaldronMerger : MonoBehaviour
     private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
     private GameObject _recipeResult;
-    /// <summary>
-    /// the last bottle that has been filled with the recipe result. Used to avoid adding it to ingredient directly after it has been filled. ( ~ one-second delay)
-    /// </summary>
-    private GameObject _lastBottleField;
     
     private void Awake()
     {
@@ -48,8 +45,6 @@ public class CaldronMerger : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == _lastBottleField) return;
-        
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
         if (abstractIngredient != null)
         {   
@@ -104,14 +99,6 @@ public class CaldronMerger : MonoBehaviour
         var recipeResult = Instantiate(_recipeResult, position, rotation);
         recipeResult.GetComponent<PersonalizedGrabInteractable>().AttachInteractor(interactor);
 
-        _lastBottleField = recipeResult;
-        StartCoroutine(WaitBeforeBottleCanBeUsedAsAnIngredient());
         _recipeResult = null;
-    }
-    
-    private IEnumerator WaitBeforeBottleCanBeUsedAsAnIngredient()
-    {
-        yield return new WaitForSeconds(0.75f);
-        _lastBottleField = null;
     }
 }
