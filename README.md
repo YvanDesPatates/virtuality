@@ -3,12 +3,13 @@ Vous devez avoir les packages suivant :
 - InfinityPBR_LowPoly_URP.unitypackage
 - InfinityPBR_URP.unitypackage
 
-Importez d'abord LowPoly : Assets -> Import package -> Custom package...
-Dans le dossier "Imported", créez les dossiers suivant en respectant la hierarchie :
+Vous trouverez les dossiers suivant dans Imported :
 - InfinityPBR
-  - InfinityPBR-Humans
-  - InfinityPBR-Monsters
+  - Humans
+  - Monsters
+Leurs contenus ne sont pas push et se trouvent sur le gitignore.
 
-Glissez les dossiers "InfinityPBR" et "InfinityPBR- Magic Pig Games" dans le dossier Monsters
+Importez d'abord LowPoly : Assets -> Import package -> Custom package...
+Glissez les nouveaux dossiers "InfinityPBR" et "InfinityPBR- Magic Pig Games" dans le dossier Monsters
 
 Puis répétez l'opération avec le deuxième package et glissez le dans humans.
