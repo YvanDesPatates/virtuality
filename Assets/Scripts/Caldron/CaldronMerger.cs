@@ -86,6 +86,7 @@ public class CaldronMerger : MonoBehaviour
         _ingredients.Clear();
         _recipeResult = null;
         waterEmptyingSound.Play();
+        caldronShaderController.OnCaldronEmptied();
     }
     
     /// <summary>
