@@ -21,6 +21,8 @@ public class SpatulaDetection : MonoBehaviour
     {
         if (other.CompareTag("Caldron_Spatula"))
         {
+            caldronMerger.caldronShaderController.OnStirringMovement();
+
             _nbHalfTurns++;
             if (_nbHalfTurns >= _nbHalfTurnsToMerge)
             {

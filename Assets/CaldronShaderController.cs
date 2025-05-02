@@ -22,9 +22,15 @@ public class CaldronShaderController : MonoBehaviour
         ResetCaldronShader();
     }
 
+    public void OnStirringMovement()
+    {
+        caldronLiquidMaterial.SetFloat("_Speed", 2);
+    }
+
     private void ResetCaldronShader()
     {
         caldronLiquidMaterial.SetFloat("_Alpha", 0);
+        caldronLiquidMaterial.SetFloat("_Speed", 0.5f);
     }
 
     private IEnumerator FadeAlpha(float startValue, float endValue, float duration)
@@ -47,10 +53,5 @@ public class CaldronShaderController : MonoBehaviour
         }
 
         caldronLiquidMaterial.SetFloat("_Alpha", endValue);
-    }
-
-    public void OnStirringMovement()
-    {
-        caldronLiquidMaterial.SetFloat("_Speed", 2);
     }
 }

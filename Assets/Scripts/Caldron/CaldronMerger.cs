@@ -10,7 +10,7 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private SpatulaDetection spatulaDetection;
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
-    [SerializeField] private CaldronShaderController caldronShaderController;
+    public CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
@@ -106,5 +106,6 @@ public class CaldronMerger : MonoBehaviour
         recipeResult.GetComponent<PersonalizedGrabInteractable>().AttachInteractor(interactor);
 
         _recipeResult = null;
+        caldronShaderController.OnCaldronEmptied();
     }
 }
