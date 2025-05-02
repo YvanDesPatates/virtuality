@@ -50,10 +50,7 @@ public class CaldronMerger : MonoBehaviour
         if (abstractIngredient != null)
         {   
             spatulaDetection.ResetNbHalfTurns();
-            if(_ingredients.Count() == 0)
-            {
-                caldronShaderController.OnIngredientAdded();
-            }
+            caldronShaderController.OnIngredientAdded();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
             _recipeResult = null;
             return;

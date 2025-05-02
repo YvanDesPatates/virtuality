@@ -14,7 +14,9 @@ public class CaldronShaderController : MonoBehaviour
 
     public void OnIngredientAdded()
     {
-        StartCoroutine(FadeAlpha(0f, 100f, 2f));
+        if(caldronLiquidMaterial.GetFloat("_Alpha") == 0){
+            StartCoroutine(FadeAlpha(0f, 100f, 2f));
+        }
     }
 
     public void OnCaldronEmptied()
