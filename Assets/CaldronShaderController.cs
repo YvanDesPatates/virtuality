@@ -24,8 +24,10 @@ public class CaldronShaderController : MonoBehaviour
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            
+
             float t = elapsed / duration;
+
+            t = Mathf.Pow(t, 2);
 
             float alpha = Mathf.Lerp(startValue, endValue, t);
 
