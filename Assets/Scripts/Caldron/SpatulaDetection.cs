@@ -24,7 +24,7 @@ public class SpatulaDetection : MonoBehaviour
             _nbHalfTurns++;
             if (_nbHalfTurns >= _nbHalfTurnsToMerge)
             {
-                caldronMerger.Merge();
+                caldronMerger.FinishRecipe();
                 _nbHalfTurns = 0;
             }
         }

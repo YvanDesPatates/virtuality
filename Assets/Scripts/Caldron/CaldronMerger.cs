@@ -8,7 +8,6 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private int nbHalfTurnToMerge = 6;
     [Space]
     [SerializeField] private SpatulaDetection spatulaDetection;
-    [SerializeField] private Rigidbody caldronRigidbody;
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
     
@@ -16,32 +15,16 @@ public class CaldronMerger : MonoBehaviour
     private RecipesManager _recipesManager;
     private GameObject _recipeResult;
     
-    private bool _resetRotation = false;
-    private bool _readyToEmpty = true;
-    private Action _callbackForRotationEnd;
-
     private void Awake()
     {
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
     }
 
-    private void FixedUpdate()
-    {
-        if (_resetRotation)
-        {
-            caldronTransform.localRotation = Quaternion.Slerp(caldronTransform.localRotation, Quaternion.Euler(0, 0, 0), 0.25f);
-            _resetRotation = caldronTransform.localRotation != Quaternion.Euler(0, 0, 0);
-            // if the rotation is fully reset, we can call the callback to notify the animation trigger that the rotation is done
-            if (!_resetRotation)
-            {
-                _callbackForRotationEnd?.Invoke();
-                caldronRigidbody.isKinematic = true;
-            }
-        }
-    }
-
-    public void Merge()
+    /// <summary>
+    /// when called, all the ingredients are merged into the corresponding recipe result, if there is one.
+    /// </summary>
+    public void FinishRecipe()
     {
         var ingredientList = _ingredients.AddIngredient(IngredientType.Caldron);
         var ingredientResult = _recipesManager.GetRecipeResult(ingredientList);
@@ -51,26 +34,15 @@ public class CaldronMerger : MonoBehaviour
         }
     }
 
-    public void OnRotationAnimationStart()
-    {
-        caldronRigidbody.isKinematic = true;
-    }
-
     public void OnRotationMaxAngleReached()
     {
         Empty();
     }
 
-    public void OnRotationAnimationEnd(Action callback)
-    {
-        
-        caldronRigidbody.isKinematic = false; 
-        caldronRigidbody.isKinematic = false;
-        _resetRotation = true;
-        _callbackForRotationEnd = callback;
-        _readyToEmpty = true;
-    }
-
+    /// <summary>
+    /// each time an ingredient enters the caldron, it is added to the list of ingredients.
+    /// if there is a recipe result waiting to be transferred in a bottle, it is set to null.
+    /// </summary>
     private void OnTriggerEnter(Collider other)
     {
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
@@ -78,6 +50,7 @@ public class CaldronMerger : MonoBehaviour
         {   
             spatulaDetection.ResetNbHalfTurns();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
+            _recipeResult = null;
             return;
         }
 
@@ -105,21 +78,19 @@ public class CaldronMerger : MonoBehaviour
 
     private void Empty()
     {
-        if (_readyToEmpty)
-        {
-            _ingredients.Clear();
-            waterEmptyingSound.Play();
-            _readyToEmpty = false;   
-        }
+        _ingredients.Clear();
+        _recipeResult = null;
+        waterEmptyingSound.Play();
     }
     
+    /// <summary>
+    /// fill a bottle with the last recipe result. Set the recipe result to null because a recipe fill only one bottle.
+    /// </summary>
     private void ReplaceEmptyBottleWithLastRecipe(GameObject emptyBottle)
     {
+        if (_recipeResult is null) return;
         var grabInteractable = emptyBottle.GetComponent<PersonalizedGrabInteractable>();
-        if (grabInteractable is null)
-        {
-            return;   
-        }
+        if (grabInteractable is null) return;
         
         var position = emptyBottle.transform.position;
         var rotation = emptyBottle.transform.rotation;
@@ -127,5 +98,7 @@ public class CaldronMerger : MonoBehaviour
         Destroy(emptyBottle);
         var recipeResult = Instantiate(_recipeResult, position, rotation);
         recipeResult.GetComponent<PersonalizedGrabInteractable>().AttachInteractor(interactor);
+
+        _recipeResult = null;
     }
 }

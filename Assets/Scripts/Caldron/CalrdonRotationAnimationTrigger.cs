@@ -1,51 +1,83 @@
+using System.Collections;
 using UnityEngine;
 
-public class CalrdonRotationAnimationTrigger : MonoBehaviour
+public class CalrdonRotationAnimationTrigger : LeverAction
 {
-    private static readonly int CaldronRotationTrigger = Animator.StringToHash("rotate");
-
-    [Tooltip("the rotation player has to give to trigger the rotation animation")]
-    [SerializeField] private float rotationThreshold = 20f;
-    [Space]
     [SerializeField] private CaldronMerger caldronMerger;
-    [SerializeField] private Transform caldronTransform;
-    [SerializeField] private DistanceReleaseGrabInteractable grabInteractable;
-    [SerializeField] private Animator animator;
+    [SerializeField] private float maxLocalXRotation;
+    [SerializeField] private float rotationSpeed = 2f;
+    [SerializeField] private float midAnimationPauseInSeconds = 1.5f;
 
     private bool _animationIsRunning = false;
-    private bool _animationHasStartAndIsNoMoreAtTheBeginning = false;
+    private bool _maxXRotationWasReached = false;
+    private float _minXLocalRotation;
+
+    public override void LeverWasPulled()
+    {
+        _minXLocalRotation = caldronMerger.transform.localRotation.eulerAngles.x;
+        StartAnimation();
+    }
 
     private void Update()
     {
         if (_animationIsRunning)
         {
-            grabInteractable.DetachInteractor();
-        }
-        
-        if ( !_animationIsRunning && caldronTransform.localRotation.x > rotationThreshold/100)
-        {
-            caldronMerger.OnRotationAnimationStart();
-            animator.SetBool(CaldronRotationTrigger, true);
-            _animationHasStartAndIsNoMoreAtTheBeginning = false;
-            _animationIsRunning = true;
-        }
+            float currentXRotation = caldronMerger.transform.localRotation.eulerAngles.x;
 
-        if (_animationIsRunning && transform.localRotation.x > 0.3)
-        {
-            _animationHasStartAndIsNoMoreAtTheBeginning = true;
-            caldronMerger.OnRotationMaxAngleReached();
+            if (!_maxXRotationWasReached)
+            {
+                // go to maxLocalXRotation
+                Quaternion targetRotation = Quaternion.Euler(maxLocalXRotation, 0, 0);
+                caldronMerger.transform.localRotation = Quaternion.RotateTowards(
+                    caldronMerger.transform.localRotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
+
+                if (Mathf.Abs(currentXRotation - maxLocalXRotation) < 0.1f)
+                {
+                    caldronMerger.OnRotationMaxAngleReached();
+                    _maxXRotationWasReached = true;
+                    StartCoroutine(DoAPauseInAnimation());
+                }
+            }
+            else
+            {
+                // Return to minLocalXRotation
+                Quaternion targetRotation = Quaternion.Euler(_minXLocalRotation, 0, 0);
+                caldronMerger.transform.localRotation = Quaternion.RotateTowards(
+                    caldronMerger.transform.localRotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
+                
+                if (Mathf.Abs(currentXRotation - _minXLocalRotation) < 0.1f)
+                {
+                    OnRotationFullyFinished();
+                }
+            }
         }
-        
-        // stop the animation, otherwise it's stuck in a loop
-        if ( _animationIsRunning && _animationHasStartAndIsNoMoreAtTheBeginning && transform.rotation.x == 0)
+    }
+
+    private void StartAnimation()
+    {
+        if (!_animationIsRunning)
         {
-            animator.SetBool(CaldronRotationTrigger, false);
-            caldronMerger.OnRotationAnimationEnd(OnRotationFullyFinished);
+            _animationIsRunning = true;
         }
     }
 
     private void OnRotationFullyFinished()
     {
+        caldronMerger.transform.localRotation = Quaternion.Euler(_minXLocalRotation, 0, 0);
+        _maxXRotationWasReached = false;
         _animationIsRunning = false;
+    }
+    
+    private IEnumerator DoAPauseInAnimation()
+    {
+        _animationIsRunning = false;
+        yield return new WaitForSeconds(midAnimationPauseInSeconds);
+        _animationIsRunning = true;
     }
 }

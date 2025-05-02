@@ -11,7 +11,8 @@ Dans cette optique, même le chaudron est un ingrédient. Si aucune recettes ne 
 Chaque ingédient doit :
 - être référencé dans l'énumération `IngredientType` du script `IngredientsEnum.cs`
 - avoir une préfab portant le même nom exactement que son `IngredientType` et rangée dans le dossier `Resources/Ingredients`
-- la préfab doit contenir un script qui hérite de `AbstractIngredient.cs`
+- la racine de la préfab doit contenir un script qui hérite de `AbstractIngredient.cs`
+- la racine de la préfab doit contenir un `PersonalizedGrabInteractable.cs`
 
 ### Ingrédients spéciaux :
 
