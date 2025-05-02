@@ -150,6 +150,7 @@ MonoBehaviour:
   caldronMerger: {fileID: 4405142506826189242}
   maxLocalXRotation: 65
   rotationSpeed: 100
+  midAnimationPauseInSeconds: 1.5
 --- !u!65 &279292175279148034
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -246,7 +247,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6000839526562294627, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5698107533336757813}
   m_SourcePrefab: {fileID: 100100000, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
 --- !u!82 &263371086133573527 stripped
 AudioSource:
@@ -269,3 +273,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374cccb72793aaf66a13ac1d59373cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7305055254032498185 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6000839526562294627, guid: 6843ec3709b5e9c0699612d6054a07d8, type: 3}
+  m_PrefabInstance: {fileID: 3902235820788766058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5698107533336757813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7305055254032498185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e2a5a6214208f4984b83b2e8cd05e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  caldronLiquidMaterial: {fileID: 2100000, guid: 22fdbed2b3e7d5442903df16d186658d, type: 2}

@@ -10,6 +10,7 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private SpatulaDetection spatulaDetection;
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
+    [SerializeField] private CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
@@ -50,6 +51,7 @@ public class CaldronMerger : MonoBehaviour
         {   
             spatulaDetection.ResetNbHalfTurns();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
+            caldronShaderController.OnIngredientAdded();
             _recipeResult = null;
             return;
         }
