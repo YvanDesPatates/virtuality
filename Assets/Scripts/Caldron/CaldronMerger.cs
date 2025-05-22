@@ -42,7 +42,7 @@ public class CaldronMerger : MonoBehaviour
 
     /// <summary>
     /// each time an ingredient enters the caldron, it is added to the list of ingredients.
-    /// if there is a recipe result waiting to be transferred in a bottle, it is set to null.
+    /// if there is a recipe result waiting to be transferred in a bottle, recipe is set to null.
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
