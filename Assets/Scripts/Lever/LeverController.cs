@@ -4,8 +4,11 @@ using UnityEngine.Serialization;
 public class LeverController : MonoBehaviour
 {
     [SerializeField] private LeverAction leverAction;
+    [Space]
     [SerializeField] private LeverGrabInteractable grabInteractable;
     [SerializeField] private float maxGlobalZPostion;
+    [SerializeField] private AudioSource lever_pulled_sound;
+    [SerializeField] private AudioSource lever_pushed_sound;
 
     private bool handleBarReachedMaxAngle = false;
     private float _minGlobalZPostion;
@@ -21,12 +24,14 @@ public class LeverController : MonoBehaviour
         if (!handleBarReachedMaxAngle && transform.position.z >= maxGlobalZPostion)
         {
             handleBarReachedMaxAngle = true;
+            lever_pulled_sound.Play();
         }
 
         if (handleBarReachedMaxAngle && transform.position.z <= _minGlobalZPostion)
         {
             handleBarReachedMaxAngle = false;
             leverAction.LeverWasPulled();
+            lever_pushed_sound.Play();
         }
     }
 }
