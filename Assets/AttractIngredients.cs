@@ -28,7 +28,7 @@ public class AttractIngredients : AbstractGrabEventReceiver
 
     private void Update()
     {
-        // move the ingredient to the positionToAttractTo with a non straight line
+        // Déplacement de l'ingrédient vers la position cible avec fluctuation
         if (actualIngredientRigidbody is not null && actualIngredientTransform.position != positionToAttractTo.position)
         {
             float fluctuationX = Mathf.Sin(Time.time * 2f) * fluctuationCoefficient;
@@ -42,6 +42,13 @@ public class AttractIngredients : AbstractGrabEventReceiver
 
             actualIngredientTransform.position = Vector3.Lerp(actualIngredientTransform.position, fluctuatedPosition,
                 Time.deltaTime * attractionSpeed);
+        }
+
+        // Rotation douce vers l'orientation neutre
+        if (actualIngredientTransform is not null)
+        {
+            Quaternion targetRotation = Quaternion.identity; // Orientation neutre
+            actualIngredientTransform.rotation = Quaternion.Lerp(actualIngredientTransform.rotation, targetRotation, Time.deltaTime * attractionSpeed);
         }
     }
 
