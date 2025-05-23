@@ -230,7 +230,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attractionSpeed: 1
+  fluctuationCoefficient: 0.2
   positionToAttractTo: {fileID: 6174278876886564601}
+  cuttingBoardController: {fileID: 3449265761448115291}
 --- !u!1 &6898708174266843343
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 965264299172406285}
+  - component: {fileID: 3449265761448115291}
   m_Layer: 0
   m_Name: Cuttingboard
   m_TagString: Untagged
@@ -264,6 +267,18 @@ Transform:
   - {fileID: 4243317497043923881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3449265761448115291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6898708174266843343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e0ae0f5127ecd34857718d7c3588fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8138891458017696071
 GameObject:
   m_ObjectHideFlags: 0

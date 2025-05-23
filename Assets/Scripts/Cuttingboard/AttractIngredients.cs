@@ -6,6 +6,7 @@ public class AttractIngredients : AbstractGrabEventReceiver
     [Tooltip("higher the value is, less the direction of the ingredient will be straight to the point")]
     [SerializeField] private float fluctuationCoefficient = 0.2f;
     [SerializeField] private Transform positionToAttractTo;
+    [SerializeField] private CuttingBoardController cuttingBoardController;
 
     /// <summary>
     /// if actualGrabInteractable is not null, it means that an ingredient
@@ -13,7 +14,8 @@ public class AttractIngredients : AbstractGrabEventReceiver
     /// </summary>
     private PersonalizedGrabInteractable actualIngredientGrabInteractable;
     private Rigidbody actualIngredientRigidbody;
-    private Transform actualIngredientTransform;    
+    private Transform actualIngredientTransform;
+    private CuttableIngredient actualCuttableIngredient;
 
     private void OnTriggerStay(Collider other)
     {
@@ -60,6 +62,9 @@ public class AttractIngredients : AbstractGrabEventReceiver
         
         actualIngredientGrabInteractable.SubscribeToGrabEvents(this);
         actualIngredientRigidbody.isKinematic = true;
+        
+        actualCuttableIngredient = ingredientToGrab.GetComponent<CuttableIngredient>();
+        actualCuttableIngredient?.SetupCuttingBoard(cuttingBoardController);
     }
     
     private void ReleaseIngredient()
@@ -67,6 +72,8 @@ public class AttractIngredients : AbstractGrabEventReceiver
         actualIngredientGrabInteractable = null;
         actualIngredientRigidbody = null;
         actualIngredientTransform = null;
+        
+        actualCuttableIngredient?.SetupCuttingBoard(null);
     }
 
     public override void OnGrabExit(PersonalizedGrabInteractable interactable)

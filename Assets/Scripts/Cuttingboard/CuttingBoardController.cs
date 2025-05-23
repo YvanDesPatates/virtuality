@@ -7,6 +7,6 @@ public class CuttingBoardController : MonoBehaviour
     /// </summary>
     public void OnIngredientCutted(CuttableIngredient ingredient)
     {
-        
+        Debug.Log("CUTTED");
     }
 }
