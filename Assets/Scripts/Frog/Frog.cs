@@ -1,48 +1,79 @@
 using UnityEngine;
 
-public class Frog : MonoBehaviour
+public class FrogJump : MonoBehaviour
 {
-    public float crouchTime = 0.3f;
-    public float jumpForce = 10f;
-    public float forwardForce = 5f; // Force horizontale vers l’avant
-    public float cooldownBetweenJumps = 1f; // Temps avant de pouvoir resauter
-    public Vector3 crouchScale = new Vector3(1, 0.5f, 1);
+    public float jumpForceMax = 3f;
+    public float jumpForceMin = 1f;
+    public float forwardForceMax = 3f;
+    public float forwardForceMin = 1f;
+    public float jumpCooldown = 5f;
 
-    private Vector3 originalScale;
+    private bool isInFrogZone = true;
     private Rigidbody rb;
-    private bool isCrouching = false;
     private bool canJump = true;
+    private Vector3 lastFrogZoneCenter;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        originalScale = transform.localScale;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void Update()
     {
-        if (collision.contacts[0].normal.y > 0.5f && canJump && !isCrouching)
+        if (!canJump) return;
+
+        if (isInFrogZone)
         {
-            StartCoroutine(FrogJumpRoutine());
+            // Saut dans une direction aléatoire
+            Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
+            Jump(randomDirection);
+        }
+        else
+        {
+            // Saut vers le centre de la zone quittée
+            Vector3 toZoneCenter = (lastFrogZoneCenter - transform.position).normalized;
+            Jump(toZoneCenter);
+        }
+
+        // Reviens dans la zone : reset le flag
+        if (Vector3.Distance(transform.position, lastFrogZoneCenter) < 2f)
+        {
+            isInFrogZone = true;
         }
     }
 
-    System.Collections.IEnumerator FrogJumpRoutine()
+    void OnTriggerExit(Collider other)
     {
-        isCrouching = true;
+        if (other.CompareTag("Frog_Zone"))
+        {
+            isInFrogZone = false;
+            lastFrogZoneCenter = other.bounds.center;
+        }
+    }
+
+    void Jump(Vector3 direction)
+    {
+        // Ne saute que si la grenouille touche le sol
+        if (!Physics.Raycast(transform.position, Vector3.down, 1.1f))
+            return;
+
+        // Réinitialise la vitesse
+        rb.linearVelocity = Vector3.zero;
+
+        // Forces aléatoires
+        float jumpForce = Random.Range(jumpForceMin, jumpForceMax);
+        float forwardForce = Random.Range(forwardForceMin, forwardForceMax);
+
+        // Appliquer les forces
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(direction * forwardForce, ForceMode.Impulse);
+
         canJump = false;
+        Invoke(nameof(ResetJump), jumpCooldown);
+    }
 
-        // Reset la vélocité Y pour éviter les rebonds
-        rb.linearVelocity = new Vector3(0f, 0f, 0f);
-
-        // Appliquer le saut vertical + une poussée vers l’avant
-        Vector3 jumpDirection = (transform.forward + Vector3.up).normalized;
-        rb.AddForce(jumpDirection * jumpForce + transform.forward * forwardForce, ForceMode.Impulse);
-
-        isCrouching = false;
-
-        // Cooldown avant de pouvoir resauter
-        yield return new WaitForSeconds(cooldownBetweenJumps);
+    void ResetJump()
+    {
         canJump = true;
     }
 }
