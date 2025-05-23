@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class AttractIngredients : AbstractGrabEventReceiver
@@ -58,19 +57,22 @@ public class AttractIngredients : AbstractGrabEventReceiver
     
     private void ReleaseIngredient()
     {
-        actualIngredientGrabInteractable.UnsubscribeToGrabEvents(this);
-        actualIngredientRigidbody.isKinematic = false;
         actualIngredientGrabInteractable = null;
         actualIngredientRigidbody = null;
         actualIngredientTransform = null;
     }
 
-    public override void OnGrabExit()
+    public override void OnGrabExit(PersonalizedGrabInteractable interactable)
     {
+        interactable.UnsubscribeToGrabEvents(this);
+        interactable.gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }
 
-    public override void OnGrabEnter()
+    public override void OnGrabEnter(PersonalizedGrabInteractable interactable)
     {
-        ReleaseIngredient();
+        if (actualIngredientGrabInteractable == interactable)
+        {
+            ReleaseIngredient();
+        }
     }
 }

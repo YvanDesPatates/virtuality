@@ -18,7 +18,7 @@ public class PersonalizedGrabInteractable: XRGrabInteractable
         
         foreach (var receiver in grabEventReceivers)
         {
-            receiver.OnGrabEnter();
+            receiver.OnGrabEnter(this);
         }
     }
 
@@ -29,7 +29,7 @@ public class PersonalizedGrabInteractable: XRGrabInteractable
         
         foreach (var receiver in grabEventReceivers)
         {
-            receiver.OnGrabExit();
+            receiver.OnGrabExit(this);
         }
     }
 
