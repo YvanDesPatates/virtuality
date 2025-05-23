@@ -29,6 +29,7 @@ public class AttractIngredients : MonoBehaviour
 
     private void Update()
     {
+        // move the ingredient to the positionToAttractTo with a non straight line
         if (actualIngredientRigidbody is not null && actualIngredientTransform.position != positionToAttractTo.position)
         {
             float fluctuationX = Mathf.Sin(Time.time * 2f) * fluctuationCoefficient;
@@ -43,6 +44,12 @@ public class AttractIngredients : MonoBehaviour
             actualIngredientTransform.position = Vector3.Lerp(actualIngredientTransform.position, fluctuatedPosition,
                 Time.deltaTime * attractionSpeed);
         }
+        
+        //release the ingredient if it is grabbed
+        if (actualIngredientGrabInteractable is not null && actualIngredientGrabInteractable.IsGrabbed())
+        {
+            ReleaseIngredient();
+        }
     }
 
     private void AttractNewIngredient(GameObject ingredientToGrab)
@@ -52,5 +59,13 @@ public class AttractIngredients : MonoBehaviour
         actualIngredientTransform = ingredientToGrab.GetComponent<Transform>();
         
         actualIngredientRigidbody.isKinematic = true;
+    }
+    
+    private void ReleaseIngredient()
+    {
+        actualIngredientRigidbody.isKinematic = false;
+        actualIngredientGrabInteractable = null;
+        actualIngredientRigidbody = null;
+        actualIngredientTransform = null;
     }
 }
