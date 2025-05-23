@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 1423700133301272660}
   - component: {fileID: 7300016389702763200}
   - component: {fileID: 6506439943699265888}
+  - component: {fileID: 4071338777353452095}
   m_Layer: 0
   m_Name: LysFlower
   m_TagString: Untagged
@@ -305,6 +306,18 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
   grabEventReceivers: []
+--- !u!114 &4071338777353452095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8563228045645275945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685e6b960adca0a7a91cbc349dd53608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9004440137034136138
 GameObject:
   m_ObjectHideFlags: 0
