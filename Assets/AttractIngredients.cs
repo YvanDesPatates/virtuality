@@ -13,9 +13,9 @@ public class AttractIngredients : AbstractGrabEventReceiver
     /// </summary>
     private PersonalizedGrabInteractable actualIngredientGrabInteractable;
     private Rigidbody actualIngredientRigidbody;
-    private Transform actualIngredientTransform;
+    private Transform actualIngredientTransform;    
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (actualIngredientGrabInteractable is not null) return;
         
