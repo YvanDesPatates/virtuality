@@ -229,6 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed00cb3cfd95ca5019a946badb67dfb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attractionSpeed: 1
+  positionToAttractTo: {fileID: 6174278876886564601}
 --- !u!1 &6898708174266843343
 GameObject:
   m_ObjectHideFlags: 0
