@@ -4,6 +4,8 @@ using UnityEngine;
 public class AttractIngredients : MonoBehaviour
 {
     [SerializeField] private float attractionSpeed = 1f;
+    [Tooltip("higher the value is, less the direction of the ingredient will be straight to the point")]
+    [SerializeField] private float fluctuationCoefficient = 0.2f;
     [SerializeField] private Transform positionToAttractTo;
 
     /// <summary>
@@ -27,9 +29,18 @@ public class AttractIngredients : MonoBehaviour
 
     private void Update()
     {
-        if (actualIngredientRigidbody is not null)
+        if (actualIngredientRigidbody is not null && actualIngredientTransform.position != positionToAttractTo.position)
         {
-            actualIngredientTransform.position = Vector3.Lerp(actualIngredientTransform.position, positionToAttractTo.position,
+            float fluctuationX = Mathf.Sin(Time.time * 2f) * fluctuationCoefficient;
+            float fluctuationZ = Mathf.Cos(Time.time * 2f) * fluctuationCoefficient;
+            Vector3 fluctuatedPosition = positionToAttractTo.position + new Vector3(fluctuationX, 0, fluctuationZ);
+
+            if (Vector3.Distance(actualIngredientTransform.position, positionToAttractTo.position) < fluctuationCoefficient)
+            {
+                fluctuatedPosition = positionToAttractTo.position;
+            }
+
+            actualIngredientTransform.position = Vector3.Lerp(actualIngredientTransform.position, fluctuatedPosition,
                 Time.deltaTime * attractionSpeed);
         }
     }
