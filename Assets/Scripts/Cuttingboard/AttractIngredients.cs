@@ -65,6 +65,8 @@ public class AttractIngredients : AbstractGrabEventReceiver
         
         actualCuttableIngredient = ingredientToGrab.GetComponentInChildren<CuttableIngredient>();
         actualCuttableIngredient?.SetCuttingBoard(cuttingBoardController);
+        
+        actualCuttableIngredient?.SetBeforeDestroyCallback(ReleaseIngredient);
     }
     
     private void ReleaseIngredient()

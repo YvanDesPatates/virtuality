@@ -375,3 +375,4 @@ MonoBehaviour:
   Notes: "This component should be on the same gameObject that a collider with isTrigger
     = true.\n This component is used to detect when the ingredient is cutted by a
     knife.\n"
+  parentObject: {fileID: 8563228045645275945}
