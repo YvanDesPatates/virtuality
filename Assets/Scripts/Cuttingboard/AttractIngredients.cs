@@ -63,8 +63,8 @@ public class AttractIngredients : AbstractGrabEventReceiver
         actualIngredientGrabInteractable.SubscribeToGrabEvents(this);
         actualIngredientRigidbody.isKinematic = true;
         
-        actualCuttableIngredient = ingredientToGrab.GetComponent<CuttableIngredient>();
-        actualCuttableIngredient?.SetupCuttingBoard(cuttingBoardController);
+        actualCuttableIngredient = ingredientToGrab.GetComponentInChildren<CuttableIngredient>();
+        actualCuttableIngredient?.SetCuttingBoard(cuttingBoardController);
     }
     
     private void ReleaseIngredient()
@@ -73,7 +73,7 @@ public class AttractIngredients : AbstractGrabEventReceiver
         actualIngredientRigidbody = null;
         actualIngredientTransform = null;
         
-        actualCuttableIngredient?.SetupCuttingBoard(null);
+        actualCuttableIngredient?.SetCuttingBoard(null);
     }
 
     public override void OnGrabExit(PersonalizedGrabInteractable interactable)

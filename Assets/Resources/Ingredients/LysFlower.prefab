@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 1423700133301272660}
   - component: {fileID: 7300016389702763200}
   - component: {fileID: 6506439943699265888}
-  - component: {fileID: 4071338777353452095}
   m_Layer: 0
   m_Name: LysFlower
   m_TagString: Untagged
@@ -306,18 +305,6 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
   grabEventReceivers: []
---- !u!114 &4071338777353452095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8563228045645275945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 685e6b960adca0a7a91cbc349dd53608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9004440137034136138
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +314,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2923609562339928201}
+  - component: {fileID: 7130981856767751502}
+  - component: {fileID: 1598564652275196797}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -350,3 +339,39 @@ Transform:
   - {fileID: 1289773624320496593}
   m_Father: {fileID: 1036402620675073931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7130981856767751502
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004440137034136138}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.38
+  m_Center: {x: 0, y: 0.12, z: 0}
+--- !u!114 &1598564652275196797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004440137034136138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685e6b960adca0a7a91cbc349dd53608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Notes: "This component should be on the same gameObject that a collider with isTrigger
+    = true.\n This component is used to detect when the ingredient is cutted by a
+    knife.\n"
