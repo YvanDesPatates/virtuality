@@ -56,4 +56,20 @@ public class PersonalizedGrabInteractable: XRGrabInteractable
     {
         return _cachedInteractor != null;
     }
+    
+    public void SubscribeToGrabEvents(AbstractGrabEventReceiver receiver)
+    {
+        if (!grabEventReceivers.Contains(receiver))
+        {
+            grabEventReceivers.Add(receiver);
+        }
+    }
+    
+    public void UnsubscribeToGrabEvents(AbstractGrabEventReceiver receiver)
+    {
+        if (grabEventReceivers.Contains(receiver))
+        {
+            grabEventReceivers.Remove(receiver);
+        }
+    }
 }

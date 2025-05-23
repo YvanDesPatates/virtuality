@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AttractIngredients : MonoBehaviour
+public class AttractIngredients : AbstractGrabEventReceiver
 {
     [SerializeField] private float attractionSpeed = 1f;
     [Tooltip("higher the value is, less the direction of the ingredient will be straight to the point")]
@@ -44,12 +44,6 @@ public class AttractIngredients : MonoBehaviour
             actualIngredientTransform.position = Vector3.Lerp(actualIngredientTransform.position, fluctuatedPosition,
                 Time.deltaTime * attractionSpeed);
         }
-        
-        //release the ingredient if it is grabbed
-        if (actualIngredientGrabInteractable is not null && actualIngredientGrabInteractable.IsGrabbed())
-        {
-            ReleaseIngredient();
-        }
     }
 
     private void AttractNewIngredient(GameObject ingredientToGrab)
@@ -58,14 +52,25 @@ public class AttractIngredients : MonoBehaviour
         actualIngredientRigidbody = ingredientToGrab.GetComponent<Rigidbody>();
         actualIngredientTransform = ingredientToGrab.GetComponent<Transform>();
         
+        actualIngredientGrabInteractable.SubscribeToGrabEvents(this);
         actualIngredientRigidbody.isKinematic = true;
     }
     
     private void ReleaseIngredient()
     {
+        actualIngredientGrabInteractable.UnsubscribeToGrabEvents(this);
         actualIngredientRigidbody.isKinematic = false;
         actualIngredientGrabInteractable = null;
         actualIngredientRigidbody = null;
         actualIngredientTransform = null;
+    }
+
+    public override void OnGrabExit()
+    {
+    }
+
+    public override void OnGrabEnter()
+    {
+        ReleaseIngredient();
     }
 }
