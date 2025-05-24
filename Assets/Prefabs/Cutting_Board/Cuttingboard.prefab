@@ -279,6 +279,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e0ae0f5127ecd34857718d7c3588fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxNbKnifeCut: 5
+  maxTimeBetweenCuts: 1.5
+  attractIngredientsScript: {fileID: 7798288758951416892}
 --- !u!1 &8138891458017696071
 GameObject:
   m_ObjectHideFlags: 0

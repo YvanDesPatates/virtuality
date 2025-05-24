@@ -52,6 +52,10 @@ public class RecipesManager : MonoBehaviour
                 IngredientType.Elixir2,
                 new IngredientList().AddIngredient(IngredientType.Caldron).AddIngredient(IngredientType.Elixir1)
                     .AddIngredient(IngredientType.Elixir1).AddIngredient(IngredientType.Elixir1)
+            },
+            {
+                IngredientType.CuttedLysFlower,
+                new IngredientList().AddIngredient(IngredientType.CuttingBoard).AddIngredient(IngredientType.LysFlower)
             }
         };
     }

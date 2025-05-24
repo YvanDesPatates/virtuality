@@ -7,8 +7,16 @@ public class CuttingBoardController : MonoBehaviour
     [SerializeField] private int maxNbKnifeCut = 5;
     [Tooltip("in seconds. If you choose 1, the knife cuts count will be reset every second")]
     [SerializeField] private float maxTimeBetweenCuts = 1.5f;
+    [Space]
+    [SerializeField] private AttractIngredients attractIngredientsScript;
     
     private int currentNbKnifeCut = 0;
+    private RecipesManager recipesManager;
+    
+    private void Awake()
+    {
+        recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
+    }
     
     /// <summary>
     /// Trigger this method when the ingredient receive a knife cut.
@@ -40,7 +48,19 @@ public class CuttingBoardController : MonoBehaviour
 
     private void CutIngredient(GameObject ingredient)
     {
+        var ingredientTransform = ingredient.transform;
         Destroy(ingredient);
+        
+        var ingredientList = new IngredientList()
+            .AddIngredient(IngredientType.CuttingBoard)
+            .AddIngredient(ingredient.GetComponent<AbstractIngredient>().GetIngredientType());
+        var ingredientResult = recipesManager.GetRecipeResult(ingredientList);
+        if (ingredientResult != null)
+        {
+            Instantiate(ingredientResult, ingredientTransform.position, Quaternion.identity);
+            attractIngredientsScript.OnIngredientCutted(ingredientResult);
+        }
+        
         ResetNbKnifeCuts();
     }
 }
