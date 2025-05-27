@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2863563272779227586
+--- !u!1 &286159175522831858
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1289773624320496593}
-  - component: {fileID: 7835477166594042343}
-  - component: {fileID: 4576147136588961054}
+  - component: {fileID: 3865211742709039073}
+  - component: {fileID: 5258228709862147543}
+  - component: {fileID: 2000849812514404654}
   m_Layer: 0
-  m_Name: P_PROP_food_cauliflower
+  m_Name: P_PROP_food_watermelon_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1289773624320496593
+--- !u!4 &3865211742709039073
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2863563272779227586}
+  m_GameObject: {fileID: 286159175522831858}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0043617, y: -0.23451, z: -0.0051086}
-  m_LocalScale: {x: 2.64848, y: 2.64848, z: 2.64848}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2923609562339928201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7835477166594042343
+--- !u!33 &5258228709862147543
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2863563272779227586}
-  m_Mesh: {fileID: -4561713352426187975, guid: 83d701ac8ad3da846ad10bf12ecba9f3, type: 3}
---- !u!23 &4576147136588961054
+  m_GameObject: {fileID: 286159175522831858}
+  m_Mesh: {fileID: 4652493751828693017, guid: fe8774a4d42b51d4da14f7dfd5bc8f78, type: 3}
+--- !u!23 &2000849812514404654
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2863563272779227586}
+  m_GameObject: {fileID: 286159175522831858}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -97,8 +97,8 @@ GameObject:
   - component: {fileID: 1036402620675073931}
   - component: {fileID: 6155046830994574872}
   - component: {fileID: 1423700133301272660}
-  - component: {fileID: 7300016389702763200}
   - component: {fileID: 6506439943699265888}
+  - component: {fileID: 4732941897194155367}
   m_Layer: 0
   m_Name: LysFlower
   m_TagString: Untagged
@@ -115,8 +115,8 @@ Transform:
   m_GameObject: {fileID: 8563228045645275945}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.023361817, y: 1.3640676, z: -0.479}
-  m_LocalScale: {x: 0.27361262, y: 0.27361262, z: 0.27361262}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6469385, y: 0.6469385, z: 0.6469385}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2923609562339928201}
@@ -161,27 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c805d4bd5b608526cbc381e900036710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &7300016389702763200
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8563228045645275945}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.44
-  m_Center: {x: 0, y: 0.12, z: 0}
 --- !u!114 &6506439943699265888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +284,27 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
   grabEventReceivers: []
+--- !u!135 &4732941897194155367
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8563228045645275945}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.24
+  m_Center: {x: -0.0110392645, y: 0.22432017, z: -0.00018174201}
 --- !u!1 &9004440137034136138
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,8 +314,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2923609562339928201}
-  - component: {fileID: 7130981856767751502}
   - component: {fileID: 1598564652275196797}
+  - component: {fileID: 853167226162212868}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -336,10 +336,26 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1289773624320496593}
+  - {fileID: 3865211742709039073}
   m_Father: {fileID: 1036402620675073931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7130981856767751502
+--- !u!114 &1598564652275196797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004440137034136138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685e6b960adca0a7a91cbc349dd53608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Notes: "This component should be on the same gameObject that a collider with isTrigger
+    = true.\n This component is used to detect when the ingredient is cutted by a
+    knife.\n"
+  parentObject: {fileID: 8563228045645275945}
+--- !u!135 &853167226162212868
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -358,21 +374,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.38
-  m_Center: {x: 0, y: 0.12, z: 0}
---- !u!114 &1598564652275196797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9004440137034136138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 685e6b960adca0a7a91cbc349dd53608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Notes: "This component should be on the same gameObject that a collider with isTrigger
-    = true.\n This component is used to detect when the ingredient is cutted by a
-    knife.\n"
-  parentObject: {fileID: 8563228045645275945}
+  m_Radius: 0.23
+  m_Center: {x: -0.0110392645, y: 0.22432017, z: -0.00018174201}
