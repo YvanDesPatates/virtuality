@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CuttingBoardController : MonoBehaviour
@@ -9,6 +10,7 @@ public class CuttingBoardController : MonoBehaviour
     [SerializeField] private float maxTimeBetweenCuts = 1.5f;
     [Space]
     [SerializeField] private AttractIngredients attractIngredientsScript;
+    [SerializeField] private List<GameObject> cuttingParticles;
     
     private int currentNbKnifeCut = 0;
     private RecipesManager recipesManager;
@@ -26,6 +28,15 @@ public class CuttingBoardController : MonoBehaviour
     {
         StopAllCoroutines();
         currentNbKnifeCut++;
+        //activate the next particle in the list
+        foreach (var particle in cuttingParticles)
+        {
+            if ( ! particle.activeSelf)
+            {
+                particle.SetActive(true);
+                break;
+            }
+        }
         if (currentNbKnifeCut == maxNbKnifeCut)
         {
             CutIngredient(ingredient);
@@ -43,6 +54,10 @@ public class CuttingBoardController : MonoBehaviour
     
     private void ResetNbKnifeCuts()
     {
+        foreach (var particle in cuttingParticles)
+        {
+            particle.SetActive(false);
+        }
         currentNbKnifeCut = 0;
     }
 
