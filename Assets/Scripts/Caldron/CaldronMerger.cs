@@ -12,6 +12,8 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private AudioSource waterEmptyingSound;
     [SerializeField] private AudioSource recipeSuccessSound;
     [SerializeField] private GameObject recipeSuccessParticle;
+    [SerializeField] private AudioSource recipeFailSound;
+    [SerializeField] private GameObject recipeFailParticle;
     public CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
@@ -35,6 +37,10 @@ public class CaldronMerger : MonoBehaviour
         if (ingredientResult is not null)
         {
             OnRecipeSuccess(ingredientResult);
+        }
+        else
+        {
+            OnRecipeFail();
         }
     }
 
@@ -82,6 +88,12 @@ public class CaldronMerger : MonoBehaviour
         recipeSuccessSound.Play();
         recipeSuccessParticle.SetActive(true);
         _ingredients.Clear();
+    }
+    
+    private void OnRecipeFail()
+    {
+        recipeFailSound.Play();
+        recipeFailParticle.SetActive(true);
     }
 
     private void Empty()
