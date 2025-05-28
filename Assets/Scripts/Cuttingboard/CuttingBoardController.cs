@@ -73,7 +73,6 @@ public class CuttingBoardController : MonoBehaviour
         if (ingredientResult != null)
         {
             Instantiate(ingredientResult, ingredientTransform.position, Quaternion.identity);
-            attractIngredientsScript.OnIngredientCutted(ingredientResult);
         }
         
         ResetNbKnifeCuts();

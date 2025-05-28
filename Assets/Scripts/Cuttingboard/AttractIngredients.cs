@@ -91,12 +91,4 @@ public class AttractIngredients : AbstractGrabEventReceiver
             ReleaseIngredient();
         }
     }
-    
-    public void OnIngredientCutted(GameObject ingredientResult)
-    {
-        if (ingredientResult is not null)
-        {
-            AttractNewIngredient(ingredientResult);
-        }
-    }
 }

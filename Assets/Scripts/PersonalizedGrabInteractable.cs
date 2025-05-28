@@ -59,6 +59,7 @@ public class PersonalizedGrabInteractable: XRGrabInteractable
     
     public void SubscribeToGrabEvents(AbstractGrabEventReceiver receiver)
     {
+        RemoveNullReceivers();
         if (!grabEventReceivers.Contains(receiver))
         {
             grabEventReceivers.Add(receiver);
@@ -67,9 +68,15 @@ public class PersonalizedGrabInteractable: XRGrabInteractable
     
     public void UnsubscribeToGrabEvents(AbstractGrabEventReceiver receiver)
     {
+        RemoveNullReceivers();
         if (grabEventReceivers.Contains(receiver))
         {
             grabEventReceivers.Remove(receiver);
         }
+    }
+    
+    private void RemoveNullReceivers()
+    {
+        grabEventReceivers.RemoveAll(receiver => receiver == null);
     }
 }

@@ -199,6 +199,7 @@ MonoBehaviour:
   m_FarAttachMode: 0
   grabEventReceivers:
   - {fileID: 0}
+  - {fileID: 0}
 --- !u!64 &759138924804630670
 MeshCollider:
   m_ObjectHideFlags: 0
