@@ -10,6 +10,7 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private SpatulaDetection spatulaDetection;
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
+    [SerializeField] private AudioSource recipeSuccessSound;
     public CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
@@ -31,7 +32,7 @@ public class CaldronMerger : MonoBehaviour
         var ingredientResult = _recipesManager.GetRecipeResult(ingredientList);
         if (ingredientResult is not null)
         {
-            MergeIngredients(ingredientResult);
+            OnRecipeSuccess(ingredientResult);
         }
     }
 
@@ -72,9 +73,10 @@ public class CaldronMerger : MonoBehaviour
         }
     }
 
-    private void MergeIngredients(GameObject ingredientResult)
+    private void OnRecipeSuccess(GameObject ingredientResult)
     {
         _recipeResult = ingredientResult;
+        recipeSuccessSound.Play();
         _ingredients.Clear();
     }
 
