@@ -56,6 +56,7 @@ public class CaldronMerger : MonoBehaviour
             caldronShaderController.OnIngredientAdded();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
             _recipeResult = null;
+            recipeSuccessParticle.SetActive(false);
             return;
         }
 
