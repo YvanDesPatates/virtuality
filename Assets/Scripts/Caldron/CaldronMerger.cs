@@ -23,6 +23,7 @@ public class CaldronMerger : MonoBehaviour
     private void Awake()
     {
         recipeSuccessParticle.SetActive(false);
+        recipeFailParticle.SetActive(false);
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
     }
