@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 830869540578766714}
-  - component: {fileID: 3230468503618680638}
   m_Layer: 0
   m_Name: MeshesAndColliders
   m_TagString: Untagged
@@ -33,27 +32,6 @@ Transform:
   - {fileID: 9101776316267702258}
   m_Father: {fileID: 1039352615044379265}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: -90}
---- !u!65 &3230468503618680638
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2401387753807581155}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.17731632, y: 0.03983459, z: 0.2847387}
-  m_Center: {x: 0.056114025, y: 0.0026275772, z: -0.22591835}
 --- !u!1 &3711390752526561996
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +182,8 @@ GameObject:
   - component: {fileID: 1039352615044379265}
   - component: {fileID: 5860639896387795784}
   - component: {fileID: 2434169333766590918}
-  - component: {fileID: 6896955096926165686}
+  - component: {fileID: 3065304783635365103}
+  - component: {fileID: 3022623698275561362}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
@@ -277,7 +256,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &6896955096926165686
+--- !u!65 &3065304783635365103
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7030969792921384300}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.03995352, y: 0.17704374, z: 0.28516155}
+  m_Center: {x: -0.0026408818, y: -0.05574818, z: 0.22595648}
+--- !u!114 &3022623698275561362
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,12 +286,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7030969792921384300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 028c3f442bdb919ec9e4cca773f5ebc0, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders:
-  - {fileID: 5860639896387795784}
+  m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -400,5 +399,3 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
-  collidersToDisable:
-  - {fileID: 3230468503618680638}
