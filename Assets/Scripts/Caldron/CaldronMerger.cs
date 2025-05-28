@@ -11,6 +11,7 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
     [SerializeField] private AudioSource recipeSuccessSound;
+    [SerializeField] private GameObject recipeSuccessParticle;
     public CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
@@ -19,6 +20,7 @@ public class CaldronMerger : MonoBehaviour
     
     private void Awake()
     {
+        recipeSuccessParticle.SetActive(false);
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
     }
@@ -77,6 +79,7 @@ public class CaldronMerger : MonoBehaviour
     {
         _recipeResult = ingredientResult;
         recipeSuccessSound.Play();
+        recipeSuccessParticle.SetActive(true);
         _ingredients.Clear();
     }
 
@@ -86,8 +89,9 @@ public class CaldronMerger : MonoBehaviour
         _recipeResult = null;
         waterEmptyingSound.Play();
         caldronShaderController.OnCaldronEmptied();
+        recipeSuccessParticle.SetActive(false);
     }
-    
+
     /// <summary>
     /// fill a bottle with the last recipe result. Set the recipe result to null because a recipe fill only one bottle.
     /// </summary>
@@ -96,7 +100,7 @@ public class CaldronMerger : MonoBehaviour
         if (_recipeResult is null) return;
         var grabInteractable = emptyBottle.GetComponent<PersonalizedGrabInteractable>();
         if (grabInteractable is null) return;
-        
+
         var position = emptyBottle.transform.position;
         var rotation = emptyBottle.transform.rotation;
         var interactor = grabInteractable.DetachInteractor();
@@ -106,5 +110,6 @@ public class CaldronMerger : MonoBehaviour
 
         _recipeResult = null;
         caldronShaderController.OnCaldronEmptied();
+        recipeSuccessParticle.SetActive(false);
     }
 }
