@@ -317,6 +317,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2580243778987655442}
+  - component: {fileID: 6269864073315671218}
+  - component: {fileID: 5351330104421699876}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -340,3 +342,41 @@ Transform:
   - {fileID: 6334733858859101318}
   m_Father: {fileID: 3532881968987243660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6269864073315671218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752587257483082578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685e6b960adca0a7a91cbc349dd53608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Notes: "This component should be on the same gameObject that a collider with isTrigger
+    = true.\n This component is used to detect when the ingredient is cutted by a
+    knife.\n"
+  parentObject: {fileID: 2144797420003457242}
+--- !u!64 &5351330104421699876
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752587257483082578}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2923674624982119993, guid: 9df3fa7f9a2f13146b6ba3cc107c7093, type: 3}
