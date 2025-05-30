@@ -7,6 +7,7 @@ public class AttractIngredients : AbstractGrabEventReceiver
     [SerializeField] private float fluctuationCoefficient = 0.2f;
     [SerializeField] private Transform positionToAttractTo;
     [SerializeField] private CuttingBoardController cuttingBoardController;
+    [SerializeField] private SuccessAndFailEffectsPlayer successAndFailEffects;
 
     /// <summary>
     /// if actualGrabInteractable is not null, it means that an ingredient
@@ -56,6 +57,7 @@ public class AttractIngredients : AbstractGrabEventReceiver
 
     private void AttractNewIngredient(GameObject ingredientToGrab)
     {
+        successAndFailEffects.StopSuccessEffects();
         actualIngredientGrabInteractable = ingredientToGrab.GetComponent<PersonalizedGrabInteractable>();
         actualIngredientRigidbody = ingredientToGrab.GetComponent<Rigidbody>();
         actualIngredientTransform = ingredientToGrab.GetComponent<Transform>();
@@ -71,6 +73,7 @@ public class AttractIngredients : AbstractGrabEventReceiver
     
     private void ReleaseIngredient()
     {
+        successAndFailEffects.StopSuccessEffects();
         actualIngredientGrabInteractable = null;
         actualIngredientRigidbody = null;
         actualIngredientTransform = null;

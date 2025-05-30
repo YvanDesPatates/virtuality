@@ -11,6 +11,7 @@ public class CuttingBoardController : MonoBehaviour
     [Space]
     [SerializeField] private AttractIngredients attractIngredientsScript;
     [SerializeField] private List<GameObject> cuttingParticles;
+    [SerializeField] private SuccessAndFailEffectsPlayer successAndFailEffects;
     
     private int currentNbKnifeCut = 0;
     private RecipesManager recipesManager;
@@ -63,6 +64,7 @@ public class CuttingBoardController : MonoBehaviour
 
     private void CutIngredient(GameObject ingredient)
     {
+        successAndFailEffects.StopSuccessEffects();
         var ingredientTransform = ingredient.transform;
         Destroy(ingredient);
         
@@ -72,8 +74,12 @@ public class CuttingBoardController : MonoBehaviour
         var ingredientResult = recipesManager.GetRecipeResult(ingredientList);
         if (ingredientResult != null)
         {
+            successAndFailEffects.PlaySuccessSoundAndEffects();
             Instantiate(ingredientResult, ingredientTransform.position, Quaternion.identity);
-        }
+        }else
+        {
+            successAndFailEffects.PlayFailSoundAndEffects(false);
+        }   
         
         ResetNbKnifeCuts();
     }
