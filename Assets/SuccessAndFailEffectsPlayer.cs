@@ -27,6 +27,8 @@ public class SuccessAndFailEffectsPlayer : MonoBehaviour
 
     public void StopSuccessEffects()
     {
+        successParticle.gameObject.SetActive(false);
+        successParticle.gameObject.SetActive(true);
         successParticle.Pause(true);
     }
     
@@ -34,6 +36,6 @@ public class SuccessAndFailEffectsPlayer : MonoBehaviour
     {
         failPermanentSmokeParticle.gameObject.SetActive(false);
         failPermanentSmokeParticle.gameObject.SetActive(true);
-        failPermanentSmokeParticle.Pause(false);
+        failPermanentSmokeParticle.Pause(true);
     }
 }

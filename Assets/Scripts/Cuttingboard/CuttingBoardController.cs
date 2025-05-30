@@ -15,6 +15,12 @@ public class CuttingBoardController : MonoBehaviour
     
     private int currentNbKnifeCut = 0;
     private RecipesManager recipesManager;
+    private bool canStopSuccesEffect = false;
+
+    public bool CanStopSuccesEffect()
+    {
+        return canStopSuccesEffect;
+    }
     
     private void Awake()
     {
@@ -75,12 +81,21 @@ public class CuttingBoardController : MonoBehaviour
         if (ingredientResult != null)
         {
             successAndFailEffects.PlaySuccessSoundAndEffects();
+            canStopSuccesEffect = false;
+            StartCoroutine(ResetLastCuttedIngredientGaveAResultCoroutine());
             Instantiate(ingredientResult, ingredientTransform.position, Quaternion.identity);
         }else
         {
             successAndFailEffects.PlayFailSoundAndEffects(false);
+            canStopSuccesEffect = true;
         }   
         
         ResetNbKnifeCuts();
+    }
+    
+    private IEnumerator ResetLastCuttedIngredientGaveAResultCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canStopSuccesEffect = true;
     }
 }

@@ -57,7 +57,6 @@ public class AttractIngredients : AbstractGrabEventReceiver
 
     private void AttractNewIngredient(GameObject ingredientToGrab)
     {
-        successAndFailEffects.StopSuccessEffects();
         actualIngredientGrabInteractable = ingredientToGrab.GetComponent<PersonalizedGrabInteractable>();
         actualIngredientRigidbody = ingredientToGrab.GetComponent<Rigidbody>();
         actualIngredientTransform = ingredientToGrab.GetComponent<Transform>();
@@ -73,7 +72,10 @@ public class AttractIngredients : AbstractGrabEventReceiver
     
     private void ReleaseIngredient()
     {
-        successAndFailEffects.StopSuccessEffects();
+        if (cuttingBoardController.CanStopSuccesEffect())
+        {
+            successAndFailEffects.StopSuccessEffects();
+        }
         actualIngredientGrabInteractable = null;
         actualIngredientRigidbody = null;
         actualIngredientTransform = null;
@@ -91,6 +93,7 @@ public class AttractIngredients : AbstractGrabEventReceiver
     {
         if (actualIngredientGrabInteractable == interactable)
         {
+            successAndFailEffects.StopSuccessEffects();
             ReleaseIngredient();
         }
     }
