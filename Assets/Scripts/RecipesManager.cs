@@ -45,17 +45,20 @@ public class RecipesManager : MonoBehaviour
         {
             {
                 IngredientType.Elixir1,
-                new IngredientList().AddIngredient(IngredientType.Caldron).AddIngredient(IngredientType.FrogSlime)
-                    .AddIngredient(IngredientType.LysFlower)
+                new IngredientList().AddIngredient(IngredientType.Caldron)
+                    .AddIngredient(IngredientType.Bone)
+                    .AddIngredient(IngredientType.CuttedLysFlower)
             },
             {
                 IngredientType.Elixir2,
-                new IngredientList().AddIngredient(IngredientType.Caldron).AddIngredient(IngredientType.Elixir1)
-                    .AddIngredient(IngredientType.Elixir1).AddIngredient(IngredientType.Elixir1)
+                new IngredientList().AddIngredient(IngredientType.Caldron).
+                    AddIngredient(IngredientType.Elixir1)
+                    .AddIngredient(IngredientType.FrogSlime)
             },
             {
                 IngredientType.CuttedLysFlower,
-                new IngredientList().AddIngredient(IngredientType.CuttingBoard).AddIngredient(IngredientType.LysFlower)
+                new IngredientList().AddIngredient(IngredientType.CuttingBoard)
+                    .AddIngredient(IngredientType.LysFlower)
             }
         };
     }

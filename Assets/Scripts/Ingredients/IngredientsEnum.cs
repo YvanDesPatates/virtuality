@@ -5,6 +5,7 @@ public enum IngredientType
     FrogSlime = 0,
     LysFlower = 1,
     CuttedLysFlower = 2,
-    Elixir1 = 3,
-    Elixir2 = 4
+    Bone = 3,
+    Elixir1 = 4,
+    Elixir2 = 5
 }
