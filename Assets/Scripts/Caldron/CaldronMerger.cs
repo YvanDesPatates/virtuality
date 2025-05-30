@@ -10,10 +10,7 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private SpatulaDetection spatulaDetection;
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
-    [SerializeField] private AudioSource recipeSuccessSound;
-    [SerializeField] private GameObject recipeSuccessParticle;
-    [SerializeField] private AudioSource recipeFailSound;
-    [SerializeField] private GameObject recipeFailParticle;
+    [SerializeField] private SuccessAndFailEffectsPlayer successAndFailEffects;
     public CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
@@ -22,8 +19,6 @@ public class CaldronMerger : MonoBehaviour
     
     private void Awake()
     {
-        recipeSuccessParticle.SetActive(false);
-        recipeFailParticle.SetActive(false);
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
     }
@@ -33,6 +28,8 @@ public class CaldronMerger : MonoBehaviour
     /// </summary>
     public void FinishRecipe()
     {
+        if (_recipeResult is not null || _ingredients.IsEmpty()) return;
+        
         var ingredientList = _ingredients.AddIngredient(IngredientType.Caldron);
         var ingredientResult = _recipesManager.GetRecipeResult(ingredientList);
         if (ingredientResult is not null)
@@ -63,7 +60,8 @@ public class CaldronMerger : MonoBehaviour
             caldronShaderController.OnIngredientAdded();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
             _recipeResult = null;
-            recipeSuccessParticle.SetActive(false);
+            successAndFailEffects.StopSuccessEffects();
+            successAndFailEffects.StopFailEffects();
             return;
         }
 
@@ -86,15 +84,13 @@ public class CaldronMerger : MonoBehaviour
     private void OnRecipeSuccess(GameObject ingredientResult)
     {
         _recipeResult = ingredientResult;
-        recipeSuccessSound.Play();
-        recipeSuccessParticle.SetActive(true);
+        successAndFailEffects.PlaySuccessSoundAndEffects();
         _ingredients.Clear();
     }
     
     private void OnRecipeFail()
     {
-        recipeFailSound.Play();
-        recipeFailParticle.SetActive(true);
+        successAndFailEffects.PlayFailSoundAndEffects();
     }
 
     private void Empty()
@@ -103,7 +99,8 @@ public class CaldronMerger : MonoBehaviour
         _recipeResult = null;
         waterEmptyingSound.Play();
         caldronShaderController.OnCaldronEmptied();
-        recipeSuccessParticle.SetActive(false);
+        successAndFailEffects.StopFailEffects();
+        successAndFailEffects.StopSuccessEffects();
     }
 
     /// <summary>
@@ -124,6 +121,6 @@ public class CaldronMerger : MonoBehaviour
 
         _recipeResult = null;
         caldronShaderController.OnCaldronEmptied();
-        recipeSuccessParticle.SetActive(false);
+        successAndFailEffects.StopSuccessEffects();
     }
 }
