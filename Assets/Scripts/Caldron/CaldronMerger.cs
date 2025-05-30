@@ -10,6 +10,7 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private SpatulaDetection spatulaDetection;
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
+    [SerializeField] private SuccessAndFailEffectsPlayer successAndFailEffects;
     public CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
@@ -27,11 +28,17 @@ public class CaldronMerger : MonoBehaviour
     /// </summary>
     public void FinishRecipe()
     {
+        if (_recipeResult is not null || _ingredients.IsEmpty()) return;
+        
         var ingredientList = _ingredients.AddIngredient(IngredientType.Caldron);
         var ingredientResult = _recipesManager.GetRecipeResult(ingredientList);
         if (ingredientResult is not null)
         {
-            MergeIngredients(ingredientResult);
+            OnRecipeSuccess(ingredientResult);
+        }
+        else
+        {
+            OnRecipeFail();
         }
     }
 
@@ -53,6 +60,8 @@ public class CaldronMerger : MonoBehaviour
             caldronShaderController.OnIngredientAdded();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
             _recipeResult = null;
+            successAndFailEffects.StopSuccessEffects();
+            successAndFailEffects.StopFailEffects();
             return;
         }
 
@@ -72,10 +81,17 @@ public class CaldronMerger : MonoBehaviour
         }
     }
 
-    private void MergeIngredients(GameObject ingredientResult)
+    private void OnRecipeSuccess(GameObject ingredientResult)
     {
         _recipeResult = ingredientResult;
+        successAndFailEffects.PlaySuccessSoundAndEffects();
         _ingredients.Clear();
+    }
+    
+    private void OnRecipeFail()
+    {
+        _ingredients.Clear();
+        successAndFailEffects.PlayFailSoundAndEffects(true);
     }
 
     private void Empty()
@@ -84,8 +100,10 @@ public class CaldronMerger : MonoBehaviour
         _recipeResult = null;
         waterEmptyingSound.Play();
         caldronShaderController.OnCaldronEmptied();
+        successAndFailEffects.StopFailEffects();
+        successAndFailEffects.StopSuccessEffects();
     }
-    
+
     /// <summary>
     /// fill a bottle with the last recipe result. Set the recipe result to null because a recipe fill only one bottle.
     /// </summary>
@@ -94,7 +112,7 @@ public class CaldronMerger : MonoBehaviour
         if (_recipeResult is null) return;
         var grabInteractable = emptyBottle.GetComponent<PersonalizedGrabInteractable>();
         if (grabInteractable is null) return;
-        
+
         var position = emptyBottle.transform.position;
         var rotation = emptyBottle.transform.rotation;
         var interactor = grabInteractable.DetachInteractor();
@@ -104,5 +122,6 @@ public class CaldronMerger : MonoBehaviour
 
         _recipeResult = null;
         caldronShaderController.OnCaldronEmptied();
+        successAndFailEffects.StopSuccessEffects();
     }
 }

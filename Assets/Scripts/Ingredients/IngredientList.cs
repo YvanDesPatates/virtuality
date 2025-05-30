@@ -40,6 +40,11 @@ public class IngredientList
     {
         return _ingredients.Count();
     }
+
+    public bool IsEmpty()
+    {
+        return _ingredients.Count == 0;
+    }
         
     // rewrite equal and hashcode to say : if the list of ingredients is the same, then the objects are the same, whatever the order of the ingredients
     public override bool Equals(object obj)
