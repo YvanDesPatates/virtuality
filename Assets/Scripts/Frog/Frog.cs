@@ -9,7 +9,7 @@ public class FrogJump : MonoBehaviour
     public float jumpCooldown = 5f;
 
     public GameObject dropPrefab;
-    public float dropCooldown = 3f;
+    public float dropCooldown = 2f;
     private bool canDrop = true;
 
     private bool isInFrogZone = true;
@@ -24,30 +24,26 @@ public class FrogJump : MonoBehaviour
 
     void Update()
     {
-        if (!canJump) return;
+        if (canJump)
+        {
+            if (isInFrogZone)
+            {
+                Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
+                Jump(randomDirection);
+            }
+            else
+            {
+                Vector3 toZoneCenter = (lastFrogZoneCenter - transform.position).normalized;
+                Jump(toZoneCenter);
+            }
 
-        if (isInFrogZone)
-        {
-            // Saut dans une direction aléatoire
-            Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
-            //Jump(randomDirection);
-        }
-        else
-        {
-            // Saut vers le centre de la zone quittée
-            Vector3 toZoneCenter = (lastFrogZoneCenter - transform.position).normalized;
-            //Jump(toZoneCenter);
-        }
-
-        // Reviens dans la zone : reset le flag
-        if (Vector3.Distance(transform.position, lastFrogZoneCenter) < 2f)
-        {
-            isInFrogZone = true;
+            if (Vector3.Distance(transform.position, lastFrogZoneCenter) < 2f)
+            {
+                isInFrogZone = true;
+            }
         }
 
-        // Gestion du drop when frog is upside down
-        Debug.Log("Current Rotation: " + transform.localRotation.x);
-        Debug.Log(transform.rotation.x);
+        // Vérifie si la grenouille est à l’envers caca
         if (canDrop && (transform.localRotation.x < -0.65 && transform.localRotation.eulerAngles.x > -0.9) || (transform.localRotation.x > 0.65 && transform.localRotation.eulerAngles.x < 0.9))
         {
             DropCube();
@@ -100,19 +96,8 @@ public class FrogJump : MonoBehaviour
 
     void DropCube()
     {
-        Debug.Log("DropCube called!");
-
-        // Instancie le cube
         GameObject drop = Instantiate(dropPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
         Rigidbody dropRb = drop.GetComponent<Rigidbody>();
-        StartCoroutine(WaitAndResetDrop());
     }
 
-    // coroutine qui attend une seconde avant de reset drop
-    private System.Collections.IEnumerator WaitAndResetDrop()
-    {
-        canDrop = false;
-        yield return new WaitForSeconds(1f);
-        canDrop = true;
-    }
 }
