@@ -90,7 +90,8 @@ public class CaldronMerger : MonoBehaviour
     
     private void OnRecipeFail()
     {
-        successAndFailEffects.PlayFailSoundAndEffects();
+        _ingredients.Clear();
+        successAndFailEffects.PlayFailSoundAndEffects(true);
     }
 
     private void Empty()

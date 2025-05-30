@@ -4,29 +4,34 @@ using UnityEngine.Serialization;
 public class SuccessAndFailEffectsPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSource successSound;
-    [SerializeField] private GameObject successParticle;
+    [SerializeField] private ParticleSystem successParticle;
     [SerializeField] private AudioSource failSound;
-    [SerializeField] private GameObject failParticle;
-    
+    [SerializeField] private ParticleSystem failParticle;
+    [SerializeField] private ParticleSystem failPermanentSmokeParticle;
+
     public void PlaySuccessSoundAndEffects()
     {
         successSound.Play();
-        successParticle.SetActive(true);
+        successParticle.Play(true);
     }
-    
-    public void PlayFailSoundAndEffects()
+
+    public void PlayFailSoundAndEffects(bool playPermanentSmoke = false)
     {
         failSound.Play();
-        failParticle.SetActive(true);
+        failParticle.Play(true);
+        if (playPermanentSmoke)
+        {
+            failPermanentSmokeParticle.Play(true);
+        }
     }
-    
+
     public void StopSuccessEffects()
     {
-        successParticle.SetActive(false);
+        successParticle.Pause(true);
     }
     
     public void StopFailEffects()
     {
-        failParticle.SetActive(false);
+        failPermanentSmokeParticle.Pause(false);
     }
 }
