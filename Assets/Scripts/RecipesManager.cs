@@ -56,6 +56,19 @@ public class RecipesManager : MonoBehaviour
                     .AddIngredient(IngredientType.FrogSlime)
             },
             {
+                IngredientType.Elixir3,
+                new IngredientList().AddIngredient(IngredientType.Caldron)
+                    .AddIngredient(IngredientType.Bone)
+                    .AddIngredient(IngredientType.FrogSlime)
+            },
+            {
+                IngredientType.Elixir4,
+                new IngredientList().AddIngredient(IngredientType.Caldron)
+                    .AddIngredient(IngredientType.Elixir3)
+                    .AddIngredient(IngredientType.Elixir2)
+                    .AddIngredient(IngredientType.FrogSlime)
+            },
+            {
                 IngredientType.CuttedLysFlower,
                 new IngredientList().AddIngredient(IngredientType.CuttingBoard)
                     .AddIngredient(IngredientType.LysFlower)
