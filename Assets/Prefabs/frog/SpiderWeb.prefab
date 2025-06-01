@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7150732937023796702}
   - component: {fileID: 4626058468001034906}
   - component: {fileID: 8407790489228278662}
+  - component: {fileID: 586987556556569575}
   m_Layer: 0
   m_Name: SpiderWeb
   m_TagString: Untagged
@@ -114,6 +115,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &586987556556569575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8934418747985478262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa59c1a6da5a346b1ad639cf1a40aa12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &634409929511822489
 PrefabInstance:
   m_ObjectHideFlags: 0
