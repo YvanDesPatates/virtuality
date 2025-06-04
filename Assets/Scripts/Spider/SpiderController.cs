@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FrogJump : MonoBehaviour
+public class SpiderController : MonoBehaviour
 {
     public float jumpForceMax = 3f;
     public float jumpForceMin = 1f;

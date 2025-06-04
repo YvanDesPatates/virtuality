@@ -4745,7 +4745,7 @@ GameObject:
   - component: {fileID: 873012708330288714}
   - component: {fileID: -4151677546998950708}
   m_Layer: 0
-  m_Name: Frog
+  m_Name: Spider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

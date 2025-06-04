@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4087759892967785485}
   m_Layer: 0
-  m_Name: FrogFrog
+  m_Name: Spider_Ready_To_Use
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
