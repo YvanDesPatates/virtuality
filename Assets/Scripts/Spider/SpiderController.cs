@@ -17,8 +17,11 @@ public class SpiderController : MonoBehaviour
     private bool canJump = true;
     private Vector3 lastFrogZoneCenter;
 
+    private Animator animator;
+
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -43,7 +46,11 @@ public class SpiderController : MonoBehaviour
             }
         }
 
-        // Vérifie si la grenouille est à l’envers caca
+        if (rb.linearVelocity.y < 0)
+        {
+            rb.AddForce(Vector3.up * 1.5f, ForceMode.Acceleration);
+        }
+
         if (canDrop && (transform.localRotation.x < -0.65 && transform.localRotation.eulerAngles.x > -0.9) || (transform.localRotation.x > 0.65 && transform.localRotation.eulerAngles.x < 0.9))
         {
             DropCube();
@@ -70,6 +77,11 @@ public class SpiderController : MonoBehaviour
         // Réinitialise la vitesse
         rb.linearVelocity = Vector3.zero;
 
+        if (animator != null)
+        {
+            animator.SetTrigger("goAir");
+        }
+
         // Forces aléatoires
         float jumpForce = Random.Range(jumpForceMin, jumpForceMax);
         float forwardForce = Random.Range(forwardForceMin, forwardForceMax);
@@ -86,6 +98,7 @@ public class SpiderController : MonoBehaviour
 
     void ResetJump()
     {
+        animator.SetTrigger("goGround");
         canJump = true;
     }
 
@@ -96,7 +109,7 @@ public class SpiderController : MonoBehaviour
 
     void DropCube()
     {
-        GameObject drop = Instantiate(dropPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+        GameObject drop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
         Rigidbody dropRb = drop.GetComponent<Rigidbody>();
     }
 

@@ -2064,17 +2064,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2931437262797288775}
     m_Modifications:
+    - target: {fileID: 3113029121271117349, guid: 541de5d64e14646f396c11bf0fd68f8e, type: 3}
+      propertyPath: m_Name
+      value: Spider
+      objectReference: {fileID: 0}
     - target: {fileID: 4087759892967785485, guid: 541de5d64e14646f396c11bf0fd68f8e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.254
       objectReference: {fileID: 0}
     - target: {fileID: 4087759892967785485, guid: 541de5d64e14646f396c11bf0fd68f8e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.865
       objectReference: {fileID: 0}
     - target: {fileID: 4087759892967785485, guid: 541de5d64e14646f396c11bf0fd68f8e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.706
+      value: -2.223
       objectReference: {fileID: 0}
     - target: {fileID: 4087759892967785485, guid: 541de5d64e14646f396c11bf0fd68f8e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2108,7 +2112,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spider_Ready_To_Use
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4235440923900734483, guid: 541de5d64e14646f396c11bf0fd68f8e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
