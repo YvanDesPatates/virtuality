@@ -2,7 +2,7 @@ public enum IngredientType
 {
     CuttingBoard = -2,
     Caldron = -1,
-    FrogSlime = 0,
+    SpiderWeb = 0,
     LysFlower = 1,
     CuttedLysFlower = 2,
     Bone = 3,

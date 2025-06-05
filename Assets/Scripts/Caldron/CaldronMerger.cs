@@ -66,7 +66,7 @@ public class CaldronMerger : MonoBehaviour
         if (abstractIngredient != null)
         {   
             PersonalizedGrabInteractable personalizedGrabInteractable = other.GetComponent<PersonalizedGrabInteractable>();
-            if (personalizedGrabInteractable is not null && !personalizedGrabInteractable.IsGrabbed()) return;
+            if (personalizedGrabInteractable is not null && personalizedGrabInteractable.IsGrabbed()) return;
             
             spatulaDetection.ResetNbHalfTurns();
             caldronShaderController.OnIngredientAdded();
