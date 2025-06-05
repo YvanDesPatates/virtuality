@@ -11,6 +11,8 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private Transform caldronTransform;
     [SerializeField] private AudioSource waterEmptyingSound;
     [SerializeField] private SuccessAndFailEffectsPlayer successAndFailEffects;
+    [SerializeField] private ParticleSystem bubblesParticle;
+    private ParticleSystem.MainModule particle;
     public CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
@@ -20,6 +22,7 @@ public class CaldronMerger : MonoBehaviour
     
     private void Awake()
     {
+        bubblesParticle.Pause(true);
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
     }
@@ -70,6 +73,12 @@ public class CaldronMerger : MonoBehaviour
             
             spatulaDetection.ResetNbHalfTurns();
             caldronShaderController.OnIngredientAdded();
+            if (_ingredients.IsEmpty())
+            {
+                particle = bubblesParticle.main;
+                particle.maxParticles = 2;
+                bubblesParticle.Play();
+            }
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
             _recipeResult = null;
             successAndFailEffects.StopSuccessEffects();
@@ -108,6 +117,7 @@ public class CaldronMerger : MonoBehaviour
         _recipeResult = null;
         _caldronIsOccupiedByBadRecipe = false;
         waterEmptyingSound.Play();
+        bubblesParticle.Pause(true);
         caldronShaderController.OnCaldronEmptied();
         successAndFailEffects.StopFailEffects();
         successAndFailEffects.StopSuccessEffects();
@@ -131,6 +141,7 @@ public class CaldronMerger : MonoBehaviour
 
         _recipeResult = null;
         caldronShaderController.OnCaldronEmptied();
+        bubblesParticle.Pause(true);
         successAndFailEffects.StopSuccessEffects();
     }
 
