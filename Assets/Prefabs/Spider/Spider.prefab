@@ -1458,7 +1458,6 @@ GameObject:
   - component: {fileID: 5916340751519430444}
   - component: {fileID: 5916340751519430445}
   - component: {fileID: 5916340751519430446}
-  - component: {fileID: 3021815803809980898}
   m_Layer: 9
   m_Name: Bomber Bug LP
   m_TagString: Untagged
@@ -3484,25 +3483,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3021815803809980898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3525228102522791685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59ca2758e8bc449d9a0eeae1ab415e97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForceMax: 3
-  jumpForceMin: 1
-  forwardForceMax: 3
-  forwardForceMin: 1
-  jumpCooldown: 5
-  dropPrefab: {fileID: 0}
-  dropCooldown: 2
 --- !u!1 &3525228102522791691
 GameObject:
   m_ObjectHideFlags: 0
@@ -4763,6 +4743,7 @@ GameObject:
   - component: {fileID: 6382063298078644016}
   - component: {fileID: 1055367830863577148}
   - component: {fileID: -4151677546998950708}
+  - component: {fileID: 6128612260910213837}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -4830,7 +4811,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -4956,6 +4937,25 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!114 &6128612260910213837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4042923071153093588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ca2758e8bc449d9a0eeae1ab415e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForceMax: 3
+  jumpForceMin: 1
+  forwardForceMax: 3
+  forwardForceMin: 1
+  jumpCooldown: 5
+  dropPrefab: {fileID: 0}
+  dropCooldown: 2
 --- !u!1 &5444208179205063444
 GameObject:
   m_ObjectHideFlags: 0
