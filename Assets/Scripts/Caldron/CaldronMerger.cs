@@ -16,6 +16,7 @@ public class CaldronMerger : MonoBehaviour
     private readonly IngredientList _ingredients = new();
     private RecipesManager _recipesManager;
     private GameObject _recipeResult;
+    private bool _caldronIsOccupiedByBadRecipe = false;
     
     private void Awake()
     {
@@ -53,6 +54,14 @@ public class CaldronMerger : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Empty_Bottle"))
+        {
+            ReplaceEmptyBottleWithLastRecipe(other.gameObject);
+            return;
+        }
+
+        if (CaldronIsNotAvailable()) return;
+
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
         if (abstractIngredient != null)
         {   
@@ -62,12 +71,6 @@ public class CaldronMerger : MonoBehaviour
             _recipeResult = null;
             successAndFailEffects.StopSuccessEffects();
             successAndFailEffects.StopFailEffects();
-            return;
-        }
-
-        if (other.CompareTag("Empty_Bottle"))
-        {
-            ReplaceEmptyBottleWithLastRecipe(other.gameObject);
         }
     }
 
@@ -91,6 +94,7 @@ public class CaldronMerger : MonoBehaviour
     private void OnRecipeFail()
     {
         _ingredients.Clear();
+        _caldronIsOccupiedByBadRecipe = true;
         successAndFailEffects.PlayFailSoundAndEffects(true);
     }
 
@@ -98,6 +102,7 @@ public class CaldronMerger : MonoBehaviour
     {
         _ingredients.Clear();
         _recipeResult = null;
+        _caldronIsOccupiedByBadRecipe = false;
         waterEmptyingSound.Play();
         caldronShaderController.OnCaldronEmptied();
         successAndFailEffects.StopFailEffects();
@@ -123,5 +128,10 @@ public class CaldronMerger : MonoBehaviour
         _recipeResult = null;
         caldronShaderController.OnCaldronEmptied();
         successAndFailEffects.StopSuccessEffects();
+    }
+
+    private bool CaldronIsNotAvailable()
+    {
+        return _recipeResult is not null || _caldronIsOccupiedByBadRecipe;
     }
 }
