@@ -8,6 +8,7 @@ TagManager:
   - Caldron_Spatula
   - Empty_Bottle
   - Knife
+  - Frog_Zone
   layers:
   - Default
   - TransparentFX

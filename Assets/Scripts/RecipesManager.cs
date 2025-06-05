@@ -19,7 +19,7 @@ public class RecipesManager : MonoBehaviour
             {
                 _ingredientsPrefabs.Remove(ingredient);
                 Debug.LogWarning(
-                    $"The ingredient prefab {ingredientName} was not found, be sure that this is a normal behaviour");
+                    $"The ingredient prefab {ingredientName} was not found, be sure that this is a normal behaviour. If this ingredient might be instanciated by the recipe manager, please add it to the Resources/Ingredients folder.");
             }
         }
 
@@ -53,20 +53,20 @@ public class RecipesManager : MonoBehaviour
                 IngredientType.Elixir2,
                 new IngredientList().AddIngredient(IngredientType.Caldron).
                     AddIngredient(IngredientType.Elixir1)
-                    .AddIngredient(IngredientType.FrogSlime)
+                    .AddIngredient(IngredientType.SpiderWeb)
             },
             {
                 IngredientType.Elixir3,
                 new IngredientList().AddIngredient(IngredientType.Caldron)
                     .AddIngredient(IngredientType.Bone)
-                    .AddIngredient(IngredientType.FrogSlime)
+                    .AddIngredient(IngredientType.SpiderWeb)
             },
             {
                 IngredientType.Elixir4,
                 new IngredientList().AddIngredient(IngredientType.Caldron)
                     .AddIngredient(IngredientType.Elixir3)
                     .AddIngredient(IngredientType.Elixir2)
-                    .AddIngredient(IngredientType.FrogSlime)
+                    .AddIngredient(IngredientType.SpiderWeb)
             },
             {
                 IngredientType.CuttedLysFlower,
