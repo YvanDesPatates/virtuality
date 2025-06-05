@@ -32,12 +32,12 @@ public class SpiderController : MonoBehaviour
             if (isInFrogZone)
             {
                 Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
-                //Jump(randomDirection);
+                Jump(randomDirection);
             }
             else
             {
                 Vector3 toZoneCenter = (lastFrogZoneCenter - transform.position).normalized;
-                //Jump(toZoneCenter);
+                Jump(toZoneCenter);
             }
 
             if (Vector3.Distance(transform.position, lastFrogZoneCenter) < 2f)
