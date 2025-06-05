@@ -32,12 +32,12 @@ public class SpiderController : MonoBehaviour
             if (isInFrogZone)
             {
                 Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
-                Jump(randomDirection);
+                //Jump(randomDirection);
             }
             else
             {
                 Vector3 toZoneCenter = (lastFrogZoneCenter - transform.position).normalized;
-                Jump(toZoneCenter);
+                //Jump(toZoneCenter);
             }
 
             if (Vector3.Distance(transform.position, lastFrogZoneCenter) < 2f)
@@ -51,8 +51,9 @@ public class SpiderController : MonoBehaviour
             rb.AddForce(Vector3.up * 1.5f, ForceMode.Acceleration);
         }
 
-        if (canDrop && (transform.localRotation.x < -0.65 && transform.localRotation.eulerAngles.x > -0.9) || (transform.localRotation.x > 0.65 && transform.localRotation.eulerAngles.x < 0.9))
+        if (canDrop && transform.localRotation.x < -0.65 && transform.localRotation.x > -0.9 || canDrop && transform.localRotation.x > 0.65 && transform.localRotation.x < 0.9)
         {
+            Debug.Log("Dropping cube");
             DropCube();
             canDrop = false;
             Invoke(nameof(ResetDrop), dropCooldown);
@@ -109,7 +110,7 @@ public class SpiderController : MonoBehaviour
 
     void DropCube()
     {
-        GameObject drop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
+        GameObject drop = Instantiate(dropPrefab, transform.position + Vector3.down * 0.05f, Quaternion.identity);
         Rigidbody dropRb = drop.GetComponent<Rigidbody>();
     }
 
