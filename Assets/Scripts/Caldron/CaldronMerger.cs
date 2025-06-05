@@ -52,7 +52,7 @@ public class CaldronMerger : MonoBehaviour
     /// each time an ingredient enters the caldron, it is added to the list of ingredients.
     /// if there is a recipe result waiting to be transferred in a bottle, recipe is set to null.
     /// </summary>
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Empty_Bottle"))
         {
@@ -65,12 +65,16 @@ public class CaldronMerger : MonoBehaviour
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
         if (abstractIngredient != null)
         {   
+            PersonalizedGrabInteractable personalizedGrabInteractable = other.GetComponent<PersonalizedGrabInteractable>();
+            if (personalizedGrabInteractable is not null && !personalizedGrabInteractable.IsGrabbed()) return;
+            
             spatulaDetection.ResetNbHalfTurns();
             caldronShaderController.OnIngredientAdded();
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
             _recipeResult = null;
             successAndFailEffects.StopSuccessEffects();
             successAndFailEffects.StopFailEffects();
+            Destroy(other);
         }
     }
 
