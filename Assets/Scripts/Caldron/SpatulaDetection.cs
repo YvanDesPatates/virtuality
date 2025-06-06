@@ -24,6 +24,12 @@ public class SpatulaDetection : MonoBehaviour
             caldronMerger.caldronShaderController.OnStirringMovement();
 
             _nbHalfTurns++;
+
+            if (_nbHalfTurns%2 == 0)
+            {
+                caldronMerger.OnSpatulaTurnedOneMore();
+            }
+            
             if (_nbHalfTurns >= _nbHalfTurnsToMerge)
             {
                 caldronMerger.FinishRecipe();

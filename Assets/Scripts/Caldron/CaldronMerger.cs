@@ -23,7 +23,7 @@ public class CaldronMerger : MonoBehaviour
     {
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
-        StartCoroutine(StartBubblesAfterDelay(5));
+        StopBubbles(5);
     }
 
     /// <summary>
@@ -48,6 +48,15 @@ public class CaldronMerger : MonoBehaviour
     public void OnRotationMaxAngleReached()
     {
         Empty();
+    }
+
+    /**
+     * trigger this event when the spatula has made one more turn in the caldron when stirring.
+     */
+    public void OnSpatulaTurnedOneMore()
+    {
+        particle = bubblesParticle.main;
+        particle.maxParticles = particle.maxParticles + 5;
     }
 
     /// <summary>
@@ -115,8 +124,7 @@ public class CaldronMerger : MonoBehaviour
         _recipeResult = null;
         _caldronIsOccupiedByBadRecipe = false;
         waterEmptyingSound.Play();
-        bubblesParticle.Stop(true);
-        StartCoroutine(StartBubblesAfterDelay(3));
+        StopBubbles();
         caldronShaderController.OnCaldronEmptied();
         successAndFailEffects.StopFailEffects();
         successAndFailEffects.StopSuccessEffects();
@@ -140,8 +148,7 @@ public class CaldronMerger : MonoBehaviour
 
         _recipeResult = null;
         caldronShaderController.OnCaldronEmptied();
-        bubblesParticle.Stop(true);
-        StartCoroutine(StartBubblesAfterDelay(3));
+        StopBubbles();
         successAndFailEffects.StopSuccessEffects();
     }
 
@@ -154,5 +161,13 @@ public class CaldronMerger : MonoBehaviour
     {
         yield return new WaitForSeconds(delayInS);
         bubblesParticle.Play();
+    }
+
+    private void StopBubbles(int delayInS = 6)
+    {
+        bubblesParticle.Stop(true);
+        particle = bubblesParticle.main;
+        particle.maxParticles = 2;
+        StartCoroutine(StartBubblesAfterDelay(delayInS));
     }
 }
