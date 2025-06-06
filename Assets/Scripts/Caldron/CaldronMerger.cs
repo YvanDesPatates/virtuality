@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CaldronMerger : MonoBehaviour
@@ -20,9 +21,9 @@ public class CaldronMerger : MonoBehaviour
     
     private void Awake()
     {
-        bubblesParticle.Stop(true);
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
+        StartCoroutine(StartBubblesAfterDelay(5));
     }
 
     /// <summary>
@@ -75,7 +76,6 @@ public class CaldronMerger : MonoBehaviour
             {
                 particle = bubblesParticle.main;
                 particle.maxParticles = 2;
-                bubblesParticle.Play();
             }
             _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
             _recipeResult = null;
@@ -116,6 +116,7 @@ public class CaldronMerger : MonoBehaviour
         _caldronIsOccupiedByBadRecipe = false;
         waterEmptyingSound.Play();
         bubblesParticle.Stop(true);
+        StartCoroutine(StartBubblesAfterDelay(3));
         caldronShaderController.OnCaldronEmptied();
         successAndFailEffects.StopFailEffects();
         successAndFailEffects.StopSuccessEffects();
@@ -140,11 +141,18 @@ public class CaldronMerger : MonoBehaviour
         _recipeResult = null;
         caldronShaderController.OnCaldronEmptied();
         bubblesParticle.Stop(true);
+        StartCoroutine(StartBubblesAfterDelay(3));
         successAndFailEffects.StopSuccessEffects();
     }
 
     private bool CaldronIsNotAvailable()
     {
         return _recipeResult is not null || _caldronIsOccupiedByBadRecipe;
+    }
+    
+    private IEnumerator StartBubblesAfterDelay(float delayInS)
+    {
+        yield return new WaitForSeconds(delayInS);
+        bubblesParticle.Play();
     }
 }
