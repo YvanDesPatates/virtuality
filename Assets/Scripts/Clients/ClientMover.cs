@@ -7,8 +7,21 @@ public class ClientMover : MonoBehaviour
 
     private int currentTargetIndex = 0;
 
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Walk");
+        }
+    }
+
     void Update()
     {
+
         if (targets.Length == 0)
             return;
 
@@ -23,6 +36,7 @@ public class ClientMover : MonoBehaviour
             if (currentTargetIndex >= targets.Length)
             {
                 currentTargetIndex = targets.Length; // Go to the final target
+                animator.SetTrigger("IdleBreak");
             }
         }
     }
