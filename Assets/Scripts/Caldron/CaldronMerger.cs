@@ -74,7 +74,7 @@ public class CaldronMerger : MonoBehaviour
             _recipeResult = null;
             successAndFailEffects.StopSuccessEffects();
             successAndFailEffects.StopFailEffects();
-            Destroy(other);
+            Destroy(other.gameObject);
         }
     }
 
