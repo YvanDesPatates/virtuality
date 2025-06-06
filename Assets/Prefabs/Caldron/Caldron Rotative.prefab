@@ -5124,7 +5124,7 @@ MonoBehaviour:
   caldronTransform: {fileID: 4601774242348434235}
   waterEmptyingSound: {fileID: 263371086133573527}
   successAndFailEffects: {fileID: 4594268090447326662}
-  bubblesParticle: {fileID: 0}
+  bubblesParticle: {fileID: 1844374416145164001}
   caldronShaderController: {fileID: 5698107533336757813}
 --- !u!1001 &2679159572756332209
 PrefabInstance:
