@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class CaldronMerger : MonoBehaviour
 {
@@ -22,7 +20,7 @@ public class CaldronMerger : MonoBehaviour
     
     private void Awake()
     {
-        bubblesParticle.Pause(true);
+        bubblesParticle.Stop(true);
         _recipesManager = Util.FindObjectOfTypeOrLogError<RecipesManager>();
         spatulaDetection.InitNbHalfTurnsToMerge(nbHalfTurnToMerge);
     }
@@ -117,7 +115,7 @@ public class CaldronMerger : MonoBehaviour
         _recipeResult = null;
         _caldronIsOccupiedByBadRecipe = false;
         waterEmptyingSound.Play();
-        bubblesParticle.Pause(true);
+        bubblesParticle.Stop(true);
         caldronShaderController.OnCaldronEmptied();
         successAndFailEffects.StopFailEffects();
         successAndFailEffects.StopSuccessEffects();
@@ -141,7 +139,7 @@ public class CaldronMerger : MonoBehaviour
 
         _recipeResult = null;
         caldronShaderController.OnCaldronEmptied();
-        bubblesParticle.Pause(true);
+        bubblesParticle.Stop(true);
         successAndFailEffects.StopSuccessEffects();
     }
 
