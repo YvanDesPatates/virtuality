@@ -12,6 +12,7 @@ public class CaldronMerger : MonoBehaviour
     [SerializeField] private SuccessAndFailEffectsPlayer successAndFailEffects;
     [SerializeField] private ParticleSystem bubblesParticle;
     private ParticleSystem.MainModule particle;
+    [SerializeField] private AudioSource addIngredientSound;
     public CaldronShaderController caldronShaderController;
     
     private readonly IngredientList _ingredients = new();
@@ -75,7 +76,8 @@ public class CaldronMerger : MonoBehaviour
 
         AbstractIngredient abstractIngredient = other.GetComponent<AbstractIngredient>();
         if (abstractIngredient != null)
-        {   
+        {
+            addIngredientSound.Play();
             PersonalizedGrabInteractable personalizedGrabInteractable = other.GetComponent<PersonalizedGrabInteractable>();
             if (personalizedGrabInteractable is not null && personalizedGrabInteractable.IsGrabbed()) return;
             
