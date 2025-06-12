@@ -4,4 +4,9 @@ public class Elixir3 : AbstractIngredient
     {
         return IngredientType.Elixir3;
     }
+    
+    public override bool IsElixir()
+    {
+        return true;
+    }
 }
