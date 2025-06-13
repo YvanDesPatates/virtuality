@@ -7,6 +7,7 @@ public class AnimationController : MonoBehaviour
 {
 
     [SerializeField] private Animator animator;
+    [SerializeField] private ParticleSystem fireBreathParticle;
     private List<Func<IEnumerator>> animationMethods;
     private Vector3 minimumPosition;
 
@@ -19,7 +20,8 @@ public class AnimationController : MonoBehaviour
             PlayRearAnimation,
             PlayScratchAnimation,
             PlayWhipTailLeftAnimation,
-            PlayWhipTailRightAnimation
+            PlayWhipTailRightAnimation,
+            PlayBreatheFireAnimation
         };
         StartCoroutine(MainAnimationLoop());
     }
@@ -45,6 +47,14 @@ public class AnimationController : MonoBehaviour
             animator.CrossFade("Idle", 0.5f);
             yield return new WaitForSeconds(3f);
         }
+    }
+
+    private IEnumerator PlayBreatheFireAnimation()
+    {
+        animator.CrossFade("Breathe Fire", 0.5f);
+        fireBreathParticle.Play();
+        yield return new WaitForSeconds(2f);
+        fireBreathParticle.Stop();
     }
 
     private IEnumerator PlaySittingAnimation()
