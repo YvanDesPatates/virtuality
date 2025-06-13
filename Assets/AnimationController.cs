@@ -39,6 +39,7 @@ public class AnimationController : MonoBehaviour
         Vector3 pos = transform.position;
 
         pos.y = Mathf.Max(pos.y, minimumPosition.y);
+        pos.x = Mathf.Max(pos.x, minimumPosition.x);
 
         transform.position = pos;
     }
