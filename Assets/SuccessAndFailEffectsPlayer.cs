@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -37,5 +38,29 @@ public class SuccessAndFailEffectsPlayer : MonoBehaviour
         failPermanentSmokeParticle.gameObject.SetActive(false);
         failPermanentSmokeParticle.gameObject.SetActive(true);
         failPermanentSmokeParticle.Pause(true);
+    }
+
+    public Coroutine PlaySuccessEffectsCoroutine(float durationInSec)
+    {
+        return StartCoroutine(SuccessEffectsCoroutine(durationInSec));
+    }
+
+    public Coroutine PlayFailEffectsCoroutine(float durationInSec)
+    {
+        return StartCoroutine(FailEffectCoroutine(durationInSec));
+    }
+    
+    private IEnumerator SuccessEffectsCoroutine(float durationInSec)
+    {
+        PlaySuccessSoundAndEffects();
+        yield return new WaitForSeconds(durationInSec);
+        StopSuccessEffects();
+    }
+
+    private IEnumerator FailEffectCoroutine(float durationInSec)
+    {
+        PlayFailSoundAndEffects(true);
+        yield return new WaitForSeconds(durationInSec);
+        StopFailEffects();
     }
 }
