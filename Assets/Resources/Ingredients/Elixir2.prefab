@@ -82,9 +82,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7317941076178269110}
   - component: {fileID: 17183430644338610}
+  - component: {fileID: 748633354528932921}
   - component: {fileID: 786425770690822519}
   - component: {fileID: 8762771162641631478}
-  - component: {fileID: 2795702587754143942}
+  - component: {fileID: 6695284787643063860}
   m_Layer: 0
   m_Name: Elixir2
   m_TagString: Untagged
@@ -130,6 +131,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 773718533626073809, guid: cf9a32ddbac9e3840b1b52aa51c6b500, type: 3}
+--- !u!114 &748633354528932921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6040969195474026917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd56f7b2f6b5e8a7851ad66f431ab34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &786425770690822519
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -180,7 +193,7 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.45
---- !u!114 &2795702587754143942
+--- !u!114 &6695284787643063860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -319,7 +332,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7835653841326563421
 Transform:
