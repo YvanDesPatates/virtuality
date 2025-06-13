@@ -7,6 +7,7 @@ public class AttractElixirs : AbstractGrabEventReceiver
     [Tooltip("higher the value is, less the direction of the ingredient will be straight to the point")]
     [SerializeField] private float fluctuationCoefficient = 0.2f;
     [SerializeField] private Transform positionToAttractTo;
+    [SerializeField] private SuccessAndFailEffectsPlayer successAndFailEffects;
 
     /// <summary>
     /// if actualGrabInteractable is not null, it means that an ingredient
@@ -32,6 +33,16 @@ public class AttractElixirs : AbstractGrabEventReceiver
         var elixirToDestroy = actualIngredientTransform.gameObject;
         ReleaseIngredient();
         Destroy(elixirToDestroy);
+
+        if (isSameType)
+        {
+            successAndFailEffects.PlaySuccessEffectsCoroutine(5);
+        }
+        else
+        {
+            successAndFailEffects.PlayFailEffectsCoroutine(5);
+        }
+        
         return isSameType;
     }
 
@@ -138,5 +149,5 @@ public class AttractElixirs : AbstractGrabEventReceiver
             }
         }
     }
-    
+
 }
