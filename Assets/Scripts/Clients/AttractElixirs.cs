@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AttractElixirs : AbstractGrabEventReceiver
@@ -14,19 +15,38 @@ public class AttractElixirs : AbstractGrabEventReceiver
     private PersonalizedGrabInteractable actualIngredientGrabInteractable;
     private Rigidbody actualIngredientRigidbody;
     private Transform actualIngredientTransform;
+    
+    private bool elixirIsReady;
+    private List<ElixirIsReadySubscriber> _subscribers = new();
 
     /// <summary>
-    /// Destroy the current elixir and return its IngredientType.
+    /// Destroy the current elixir and play a success or failed effect if the elixir is the same type as passed in parameter
     /// </summary>
-    /// <returns> the IngredientType of the elixir, null if there is no current elixir</returns>
-    public IngredientType? TakeElixir()
+    /// <returns> true if the actual elixir has the same ingredientType as passed in parameter, false if types are different or if ther is no actual elixir.</returns>
+    public bool TakeElixir(IngredientType ingredientType)
     {
-        if (actualIngredientGrabInteractable is null) return null;
-        IngredientType ingredientType = actualIngredientTransform.gameObject.GetComponent<AbstractIngredient>().GetIngredientType();
+        if (actualIngredientGrabInteractable is null) return false;
+        
+        IngredientType actualingredientType = actualIngredientTransform.gameObject.GetComponent<AbstractIngredient>().GetIngredientType();
+        bool isSameType = actualingredientType == ingredientType;
         var elixirToDestroy = actualIngredientTransform.gameObject;
         ReleaseIngredient();
         Destroy(elixirToDestroy);
-        return ingredientType;
+        return isSameType;
+    }
+
+    public void Subscribe(ElixirIsReadySubscriber subscriber)
+    {
+        _subscribers.RemoveAll(subscriber => subscriber is null);
+        _subscribers.Add(subscriber);
+        if (elixirIsReady)
+        {
+            subscriber.OnElixirIsReady();
+        }
+        else
+        {
+            subscriber.OnElixirIsNotReady();
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -53,6 +73,8 @@ public class AttractElixirs : AbstractGrabEventReceiver
             if (Vector3.Distance(actualIngredientTransform.position, positionToAttractTo.position) < fluctuationCoefficient)
             {
                 fluctuatedPosition = positionToAttractTo.position;
+                elixirIsReady = true;
+                NotifySubscribers();
             }
 
             actualIngredientTransform.position = Vector3.Lerp(actualIngredientTransform.position, fluctuatedPosition,
@@ -79,10 +101,11 @@ public class AttractElixirs : AbstractGrabEventReceiver
     
     private void ReleaseIngredient()
     {
- 
         actualIngredientGrabInteractable = null;
         actualIngredientRigidbody = null;
         actualIngredientTransform = null;
+        elixirIsReady = false;
+        NotifySubscribers();
     }
 
     public override void OnGrabExit(PersonalizedGrabInteractable interactable)
@@ -98,4 +121,22 @@ public class AttractElixirs : AbstractGrabEventReceiver
             ReleaseIngredient();
         }
     }
+
+    private void NotifySubscribers()
+    {
+        _subscribers.RemoveAll(subscriber => subscriber is null);
+        
+        foreach (var subscriber in _subscribers)
+        {
+            if (elixirIsReady)
+            {
+                subscriber.OnElixirIsReady();
+            }
+            else
+            {
+                subscriber.OnElixirIsNotReady();
+            }
+        }
+    }
+    
 }
