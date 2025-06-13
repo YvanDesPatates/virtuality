@@ -291,7 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8869723238394831175}
   - component: {fileID: 1658197741524412552}
-  - component: {fileID: 625619452315319660}
+  - component: {fileID: 1683440231285763330}
   m_Layer: 0
   m_Name: AttractElixirZone
   m_TagString: Untagged
@@ -339,7 +339,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.45, y: 0.3276419, z: 0.51}
   m_Center: {x: 0, y: 0.16341141, z: 0}
---- !u!114 &625619452315319660
+--- !u!114 &1683440231285763330
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -348,14 +348,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8210054674690509066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed00cb3cfd95ca5019a946badb67dfb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e4135e16c3e4bb38fbba7c92248a5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attractionSpeed: 1
   fluctuationCoefficient: 0.2
   positionToAttractTo: {fileID: 1354508399318223338}
-  cuttingBoardController: {fileID: 0}
-  successAndFailEffects: {fileID: 0}
 --- !u!1 &8479913274523364112
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +379,7 @@ Transform:
   m_GameObject: {fileID: 8479913274523364112}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.043, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
