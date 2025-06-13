@@ -1,14 +1,37 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 public class AnimationController : MonoBehaviour
 {
 
     [SerializeField] private Animator animator;
+    private List<Func<IEnumerator>> animationMethods;
+    private Vector3 minimumPosition;
 
     void Start()
     {
+        minimumPosition = transform.position;
+        animationMethods = new List<Func<IEnumerator>> {
+            PlayFlyingAnimation,
+            PlaySittingAnimation,
+            PlayRearAnimation,
+            PlayScratchAnimation,
+            PlayWhipTailLeftAnimation,
+            PlayWhipTailRightAnimation
+        };
         StartCoroutine(MainAnimationLoop());
+    }
+
+    // make sure the dragon does not go under its origin position after an animation
+    void Update()
+    {
+        Vector3 pos = transform.position;
+
+        pos.y = Mathf.Max(pos.y, minimumPosition.y);
+
+        transform.position = pos;
     }
 
     // All animation methods must come back to idle before playing another one
@@ -16,36 +39,59 @@ public class AnimationController : MonoBehaviour
     {
         while (true)
         {
-            yield return StartCoroutine(PlayFlyingAnimation());
+            int index = UnityEngine.Random.Range(0, animationMethods.Count);
+            yield return StartCoroutine(animationMethods[index]());
 
-            animator.Play("Idle");
-            yield return new WaitForSeconds(1f);
+            animator.CrossFade("Idle", 0.5f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
     private IEnumerator PlaySittingAnimation()
     {
-        animator.Play("Sit");
+        animator.CrossFade("Sit", 0.5f);
         yield return new WaitForSeconds(1.2f);
 
-        animator.Play("Sitting");
-        yield return new WaitForSeconds(3f);
+        animator.CrossFade("Sitting", 0.5f);
+        yield return new WaitForSeconds(4f);
 
-        animator.Play("Rise");
+        animator.CrossFade("Rise", 0.5f);
         yield return new WaitForSeconds(1.5f);
     }
 
-
     private IEnumerator PlayFlyingAnimation()
     {
-        animator.Play("Idle Takeoff");
+        animator.CrossFade("Idle Takeoff", 0.5f);
         yield return new WaitForSeconds(2.2f);
 
-        animator.CrossFade("Fly Idle", 0.05f);
-        yield return new WaitForSeconds(4f);
+        animator.CrossFade("Fly Idle", 0.5f);
+        yield return new WaitForSeconds(2f);
 
-        animator.CrossFade("Idle Landing", 0.05f);
+        animator.CrossFade("Idle Landing", 0.5f);
         yield return new WaitForSeconds(2.15f);
     }
 
+    private IEnumerator PlayRearAnimation()
+    {
+        animator.CrossFade("Attack 2", 0.5f);
+        yield return new WaitForSeconds(2.15f);
+    }
+
+    private IEnumerator PlayWhipTailLeftAnimation()
+    {
+        animator.CrossFade("Tail Whip L", 0.5f);
+        yield return new WaitForSeconds(2.15f);
+    }
+
+    private IEnumerator PlayWhipTailRightAnimation()
+    {
+        animator.CrossFade("Tail Whip R", 0.5f);
+        yield return new WaitForSeconds(2.15f);
+    }
+            
+    private IEnumerator PlayScratchAnimation()
+    {
+        animator.CrossFade("Idle Break", 0.5f);
+        yield return new WaitForSeconds(5.20f);
+    }
 }
