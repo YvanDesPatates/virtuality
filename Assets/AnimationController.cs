@@ -8,6 +8,13 @@ public class AnimationController : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem fireBreathParticle;
+
+    [SerializeField] private AudioSource fireBreathSound;
+    [SerializeField] private AudioSource flappingSound;
+    [SerializeField] private AudioSource landingSound;
+    [SerializeField] private AudioSource idleSound;
+    [SerializeField] private AudioSource walkingSound;
+
     private List<Func<IEnumerator>> animationMethods;
     private Vector3 minimumPosition;
 
@@ -45,7 +52,9 @@ public class AnimationController : MonoBehaviour
             yield return StartCoroutine(animationMethods[index]());
 
             animator.CrossFade("Idle", 0.5f);
+            idleSound.Play();
             yield return new WaitForSeconds(3f);
+            idleSound.Stop();
         }
     }
 
@@ -53,14 +62,17 @@ public class AnimationController : MonoBehaviour
     {
         animator.CrossFade("Breathe Fire", 0.5f);
         fireBreathParticle.Play();
+        fireBreathSound.Play();
         yield return new WaitForSeconds(2f);
         fireBreathParticle.Stop();
+        fireBreathSound.Stop();
     }
 
     private IEnumerator PlaySittingAnimation()
     {
         animator.CrossFade("Sit", 0.5f);
         yield return new WaitForSeconds(1.2f);
+        landingSound.Play();
 
         animator.CrossFade("Sitting", 0.5f);
         yield return new WaitForSeconds(4f);
@@ -72,36 +84,47 @@ public class AnimationController : MonoBehaviour
     private IEnumerator PlayFlyingAnimation()
     {
         animator.CrossFade("Idle Takeoff", 0.5f);
+        flappingSound.Play();
         yield return new WaitForSeconds(2.2f);
 
         animator.CrossFade("Fly Idle", 0.5f);
         yield return new WaitForSeconds(2f);
 
         animator.CrossFade("Idle Landing", 0.5f);
+        flappingSound.Stop();
         yield return new WaitForSeconds(2.15f);
+        landingSound.Play();
     }
 
     private IEnumerator PlayRearAnimation()
     {
+        walkingSound.Play();
         animator.CrossFade("Attack 2", 0.5f);
         yield return new WaitForSeconds(2.15f);
+        walkingSound.Stop();
     }
 
     private IEnumerator PlayWhipTailLeftAnimation()
     {
+        idleSound.Play();
         animator.CrossFade("Tail Whip L", 0.5f);
         yield return new WaitForSeconds(2.15f);
+        idleSound.Stop();
     }
 
     private IEnumerator PlayWhipTailRightAnimation()
     {
+        idleSound.Play();
         animator.CrossFade("Tail Whip R", 0.5f);
         yield return new WaitForSeconds(2.15f);
+        idleSound.Stop();
     }
-            
+
     private IEnumerator PlayScratchAnimation()
     {
+        idleSound.Play();
         animator.CrossFade("Idle Break", 0.5f);
         yield return new WaitForSeconds(5.20f);
+        idleSound.Stop();
     }
 }
