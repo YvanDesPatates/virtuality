@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttractElixirs : AbstractGrabEventReceiver
+/// <summary>
+/// Class in charge of attracting elixirs to the client's place and being an interface with client object.
+/// </summary>
+public class ClientPlaceToTakeElixir : AbstractGrabEventReceiver
 {
     [SerializeField] private float attractionSpeed = 1f;
     [Tooltip("higher the value is, less the direction of the ingredient will be straight to the point")]
     [SerializeField] private float fluctuationCoefficient = 0.2f;
     [SerializeField] private Transform positionToAttractTo;
+    [SerializeField] private Transform positionWhereClientHasToGo;
     [SerializeField] private SuccessAndFailEffectsPlayer successAndFailEffects;
 
     /// <summary>
@@ -58,6 +62,11 @@ public class AttractElixirs : AbstractGrabEventReceiver
         {
             subscriber.OnElixirIsNotReady();
         }
+    }
+    
+    public Transform GetPositionWhereClientHasToGo()
+    {
+        return positionWhereClientHasToGo;
     }
 
     private void OnTriggerStay(Collider other)
