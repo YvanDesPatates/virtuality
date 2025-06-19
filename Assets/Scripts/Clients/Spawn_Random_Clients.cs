@@ -26,10 +26,10 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
     public void OnClientPlaceIsFree(ClientPlaceToTakeElixir clientPlace)
     {
         Debug.Log("Client place is free, spawning client.");
-        SpawnClient();
+        SpawnClient(clientPlace.GetPositionWhereClientHasToGo());
     }
 
-    void SpawnClient()
+    void SpawnClient(Transform finalTargetPosition)
     {
         if (spawnPoints.Length == 0 || clientPrefab == null)
         {
@@ -44,8 +44,9 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
         if (mover != null && clientPathParent != null)
         {
             Transform[] targets = clientPathParent.GetComponentsInChildren<Transform>()
-                                                  .Where(t => t != clientPathParent)
-                                                  .ToArray();
+                                                .Where(t => t != clientPathParent)
+                                                .Concat(new[] { finalTargetPosition })
+                                                .ToArray();
 
             Debug.Log($"Found {targets.Length} targets for client movement.");
             mover.targets = targets;
