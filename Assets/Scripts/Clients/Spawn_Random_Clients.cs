@@ -40,8 +40,6 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
         Transform spawnPoint = spawnPoints[1];
         GameObject newClient = Instantiate(clientPrefab, spawnPoint.position, Quaternion.identity);
 
-        Debug.Log($"Spawned client at {spawnPoint.position}");
-
         ClientMover mover = newClient.GetComponent<ClientMover>();
         if (mover != null && clientPathParent != null)
         {
