@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class toDoListController : MonoBehaviour
+public class ToDoListController : MonoBehaviour
 {
+    public static ToDoListController Instance { get; private set; }
 
     [SerializeField] private TextMeshPro firstToDo;
     [SerializeField] private TextMeshPro secondToDo;
@@ -12,31 +13,27 @@ public class toDoListController : MonoBehaviour
 
     private List<TextMeshPro> toDoPapers;
 
-    string[] toDoList = {
-        "- mettre une pasteque dans le chaudron",
-        "- mettre un os dans le chaudron",
-        "- touiller la mixture avec la cuillere",
-        "- mettre la potion dans une fiole vide",
-        "- tirer la poignée pour vider le chaudron",
-        "- couper une pastèque avec le couteau" };
-
-    private int stepIndex = 0;
     private int currentBlockStart = 0;
     private int localStrikeIndex = 0;
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
 
     private IEnumerator Start()
     {
         toDoPapers = new List<TextMeshPro> { firstToDo, secondToDo, thirdToDo };
 
-        yield return new WaitForSeconds(1.5f);
-        DelayBeforeNextBlock();
+        yield return new WaitForSeconds(2f);
         UpdateDisplayedTasks();
     }
 
     public void UpdateToDoList()
     {
-        if (stepIndex >= toDoList.Length)
+        if (StepTracker.Instance.GetCurrentStepIndex() >= StepTracker.Instance.StepInfo.Count)
         {
             // supprimer les bouts de papier
             return;
@@ -46,8 +43,6 @@ public class toDoListController : MonoBehaviour
         string currentText = toDoPapers[localStrikeIndex].text;
         currentText = RemoveStrikeThroughTags(currentText);
         toDoPapers[localStrikeIndex].text = "<s>" + currentText + "</s>";
-
-        stepIndex++;
         localStrikeIndex++;
 
         if (localStrikeIndex >= 3)
@@ -78,13 +73,17 @@ public class toDoListController : MonoBehaviour
     {
         int taskIndex = currentBlockStart + i;
 
-        if (taskIndex < toDoList.Length)
+        if (taskIndex < StepTracker.Instance.StepInfo.Count)
         {
+            StepType step = (StepType)taskIndex;
+            string description = StepTracker.Instance.StepInfo[step].Description;
+            
             TextMeshPro tmp = toDoPapers[i];
             tmp.alpha = 0f;
-            tmp.text = toDoList[taskIndex];
-            yield return StartCoroutine(FadeInTMP(tmp, 1f)); // Fade + attente
-            yield return new WaitForSeconds(0.2f); // Petit délai entre chaque
+            tmp.text = description;
+
+            yield return StartCoroutine(FadeInTMP(tmp, 1f));
+            yield return new WaitForSeconds(0.2f);
         }
         else
         {
