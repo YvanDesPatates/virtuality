@@ -5,27 +5,15 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
 {
     public Transform[] spawnPoints;
     public GameObject clientPrefab;
-    public float spawnInterval = 3f;
     public Transform clientPathParent;
-
-    public float ClientNumber = 4f;
-
-    private float timer = 0f;
-
 
     void Start()
     {
         ClientPlaceIsFreeSingleton.Subscribe(this);
     }
 
-    void Update()
-    {
-
-    }
-
     public void OnClientPlaceIsFree(ClientPlaceToTakeElixir clientPlace)
     {
-        Debug.Log("Client place is free, spawning client.");
         SpawnClient(clientPlace.GetPositionWhereClientHasToGo());
     }
 
@@ -37,10 +25,38 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
             return;
         }
 
-        Transform spawnPoint = spawnPoints[1];
-        GameObject newClient = Instantiate(clientPrefab, spawnPoint.position, Quaternion.identity);
+        // Randomize the spawn point
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject newClient = Instantiate(clientPrefab, spawnPoint.position, spawnPoint.rotation);
 
-        ClientMover mover = newClient.GetComponent<ClientMover>();
+        // Randomize the size of the client
+        ramdomizeSizeClient(newClient);
+        // Randomize the client appearance
+        ramdomizeClient(newClient);
+
+        // Set up the client mover
+        ClientMoverSetup(newClient, finalTargetPosition);
+    }
+
+    void ramdomizeClient(GameObject client)
+    {
+        FishManDemoLP fishManDemo = client.GetComponentInChildren<FishManDemoLP>();
+        if (fishManDemo != null)
+        {
+            Debug.Log("Randomizing FishManDemoLP for new client.");
+            fishManDemo.Randomize();
+        }
+    }
+
+    void ramdomizeSizeClient(GameObject client)
+    {
+        float randomScale = Random.Range(1.2f, 2.2f);
+        client.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+    }
+
+    void ClientMoverSetup(GameObject client, Transform finalTargetPosition)
+    {
+        ClientMover mover = client.GetComponent<ClientMover>();
         if (mover != null && clientPathParent != null)
         {
             Transform[] targets = clientPathParent.GetComponentsInChildren<Transform>()

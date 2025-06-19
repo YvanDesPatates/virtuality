@@ -16,7 +16,6 @@ public class ClientMover : MonoBehaviour
             animator.SetTrigger("Walk");
         }
     }
-
     void Update()
     {
         if (targets.Length == 0 || currentTargetIndex >= targets.Length)
