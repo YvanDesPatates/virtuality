@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,6 +38,8 @@ public class ClientPlaceToTakeElixir : AbstractGrabEventReceiver
         var elixirToDestroy = actualIngredientTransform.gameObject;
         ReleaseIngredient();
         Destroy(elixirToDestroy);
+        
+        ClientPlaceIsFreeSingleton.OnClientPlaceIsFree(this);
 
         if (isSameType)
         {
@@ -67,6 +70,11 @@ public class ClientPlaceToTakeElixir : AbstractGrabEventReceiver
     public Transform GetPositionWhereClientHasToGo()
     {
         return positionWhereClientHasToGo;
+    }
+
+    private void Start()
+    {
+        ClientPlaceIsFreeSingleton.OnClientPlaceIsFree(this);
     }
 
     private void OnTriggerStay(Collider other)

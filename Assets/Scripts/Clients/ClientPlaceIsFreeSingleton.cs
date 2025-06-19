@@ -9,15 +9,15 @@ public class ClientPlaceIsFreeSingleton
     /// </summary>
     public static void Subscribe(I_ClientPlaceIsFreeEventReceiver receiver)
     {
-        _instance.SubscribeTo(receiver);
+        GetInstance().SubscribeTo(receiver);
     }
 
     public static void OnClientPlaceIsFree(ClientPlaceToTakeElixir clientPlace)
     {
-        _instance.OnNewClientPlaceIsFree(clientPlace);
+        GetInstance().OnNewClientPlaceIsFree(clientPlace);
     }
 
-    private ClientPlacesIsFree GetInstance()
+    private static ClientPlacesIsFree GetInstance()
     {
         if (_instance is null)
         {
