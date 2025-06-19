@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ToDoListController : MonoBehaviour
 {
-    public static ToDoListController Instance { get; private set; }
 
     [SerializeField] private TextMeshPro firstToDo;
     [SerializeField] private TextMeshPro secondToDo;
@@ -15,12 +14,6 @@ public class ToDoListController : MonoBehaviour
 
     private int currentBlockStart = 0;
     private int localStrikeIndex = 0;
-
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
 
     private IEnumerator Start()

@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 95de2c52e958bca4992575cf1c379c0e, type: 2}
+  - {fileID: 2100000, guid: 57be412adf8f8f609bdb1d25e2bc2180, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -612,7 +612,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2f478699366ba494c8c74c07a8735688, type: 2}
+  - {fileID: 2100000, guid: ff6c1934153364c4c8f9aa4b4c1fdd87, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -875,7 +875,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2ca2a2ab80601474c84d2f552c8d95b7, type: 2}
+  - {fileID: 2100000, guid: 57be412adf8f8f609bdb1d25e2bc2180, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -907,6 +907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5710284143589852431}
   - component: {fileID: 2787203991856987212}
+  - component: {fileID: 6105681871896244572}
   m_Layer: 0
   m_Name: ToDo_Board
   m_TagString: Untagged
@@ -948,3 +949,15 @@ MonoBehaviour:
   firstToDo: {fileID: 8065058769472006587}
   secondToDo: {fileID: 318951665345292682}
   thirdToDo: {fileID: 187728706179691504}
+--- !u!114 &6105681871896244572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8275493034627421710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c910502bda57aca4381f9b1764a41f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

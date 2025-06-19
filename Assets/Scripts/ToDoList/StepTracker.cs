@@ -5,6 +5,8 @@ public class StepTracker : MonoBehaviour
 {
     public static StepTracker Instance { get; private set; }
 
+    [SerializeField] private ToDoListController toDoListController;
+
     public Dictionary<StepType, StepData> StepInfo { get; private set; } = new();
     private int currentStepIndex = 0;
 
@@ -38,7 +40,7 @@ public class StepTracker : MonoBehaviour
         if (StepInfo.TryGetValue(step, out var data) && data.Index == currentStepIndex)
         {
             Debug.Log("Step validé : " + step);
-            ToDoListController.Instance.UpdateToDoList();
+            toDoListController.UpdateToDoList();
             currentStepIndex++;
         }
         else
