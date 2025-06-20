@@ -20,7 +20,7 @@ public class ToDoListController : MonoBehaviour
     {
         toDoPapers = new List<TextMeshPro> { firstToDo, secondToDo, thirdToDo };
 
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(2f);
         UpdateDisplayedTasks();
     }
 
