@@ -34,7 +34,7 @@ public class ToDoListController : MonoBehaviour
         // Strike through completed task
         string currentText = toDoPapers[localStrikeIndex].text;
         currentText = RemoveStrikeThroughTags(currentText);
-        toDoPapers[localStrikeIndex].text = "<s>" + currentText + "</s>";
+        StartCoroutine(AnimateStrike(toDoPapers[localStrikeIndex]));
         localStrikeIndex++;
 
         if (localStrikeIndex >= 3)
@@ -68,7 +68,7 @@ public class ToDoListController : MonoBehaviour
             if (taskIndex < StepTracker.Instance.StepInfo.Count)
             {
                 string description = StepTracker.Instance.StepInfo[taskIndex].description;
-                
+
                 TextMeshPro tmp = toDoPapers[i];
                 tmp.alpha = 0f;
                 tmp.text = description;
@@ -100,6 +100,18 @@ public class ToDoListController : MonoBehaviour
     private string RemoveStrikeThroughTags(string input)
     {
         return input.Replace("<s>", "").Replace("</s>", "");
+    }
+    
+
+    private IEnumerator AnimateStrike(TextMeshPro tmp)
+    {
+        string original = RemoveStrikeThroughTags(tmp.text);
+        for (int i = 0; i <= original.Length; i++)
+        {
+            string partialStrike = "<s>" + original.Substring(0, i) + "</s>" + original.Substring(i);
+            tmp.text = partialStrike;
+            yield return new WaitForSeconds(0.04f);
+        }
     }
 
 }
