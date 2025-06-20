@@ -14,6 +14,7 @@ public class ToDoListController : MonoBehaviour
 
     private int currentBlockStart = 0;
     private int localStrikeIndex = 0;
+    private bool hasFoundRecipe = false;
 
 
     private IEnumerator Start()
@@ -42,6 +43,11 @@ public class ToDoListController : MonoBehaviour
             localStrikeIndex = 0;
             currentBlockStart += 3;
             StartCoroutine(DelayBeforeNextBlock());
+        }
+
+        if (hasFoundRecipe && currentBlockStart == 3 && localStrikeIndex == 8)
+        {
+            UpdateToDoList();
         }
     }
 
@@ -101,7 +107,7 @@ public class ToDoListController : MonoBehaviour
     {
         return input.Replace("<s>", "").Replace("</s>", "");
     }
-    
+
 
     private IEnumerator AnimateStrike(TextMeshPro tmp)
     {
@@ -112,6 +118,12 @@ public class ToDoListController : MonoBehaviour
             tmp.text = partialStrike;
             yield return new WaitForSeconds(0.04f);
         }
+    }
+
+
+    public void HasFoundRecipe()
+    {
+        hasFoundRecipe = true;
     }
 
 }
