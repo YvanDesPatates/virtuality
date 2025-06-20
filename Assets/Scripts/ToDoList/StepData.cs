@@ -1,11 +1,11 @@
 public class StepData
 {
-    public int Index;
-    public string Description;
+    public StepType stepType;
+    public string description;
 
-    public StepData(int index, string description)
+    public StepData(StepType stepType, string description)
     {
-        Index = index;
-        Description = description;
+        this.stepType = stepType;
+        this.description = description;
     }
 }

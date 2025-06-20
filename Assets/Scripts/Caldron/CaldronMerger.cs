@@ -89,9 +89,11 @@ public class CaldronMerger : MonoBehaviour
                 particle = bubblesParticle.main;
                 particle.maxParticles = 2;
             }
-            _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
 
-            CheckToDoList(abstractIngredient.GetIngredientType());
+            var ingredientType = abstractIngredient.GetIngredientType();
+            _ingredients.AddIngredient(ingredientType);
+            
+            CheckToDoList(ingredientType);
 
             _recipeResult = null;
             successAndFailEffects.StopSuccessEffects();

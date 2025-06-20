@@ -20,7 +20,7 @@ public class ToDoListController : MonoBehaviour
     {
         toDoPapers = new List<TextMeshPro> { firstToDo, secondToDo, thirdToDo };
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0f);
         UpdateDisplayedTasks();
     }
 
@@ -28,7 +28,6 @@ public class ToDoListController : MonoBehaviour
     {
         if (StepTracker.Instance.GetCurrentStepIndex() >= StepTracker.Instance.StepInfo.Count)
         {
-            // supprimer les bouts de papier
             return;
         }
 
@@ -47,6 +46,12 @@ public class ToDoListController : MonoBehaviour
     }
 
 
+    private void UpdateDisplayedTasks()
+    {
+        StartCoroutine(SequentialFadeInTasks());
+    }
+
+
     private IEnumerator DelayBeforeNextBlock()
     {
         yield return new WaitForSeconds(1f);
@@ -54,36 +59,29 @@ public class ToDoListController : MonoBehaviour
     }
 
 
-    private void UpdateDisplayedTasks()
-    {
-        StartCoroutine(SequentialFadeInTasks());
-    }
-
-
     private IEnumerator SequentialFadeInTasks()
-{
-    for (int i = 0; i < toDoPapers.Count; i++)
     {
-        int taskIndex = currentBlockStart + i;
-
-        if (taskIndex < StepTracker.Instance.StepInfo.Count)
+        for (int i = 0; i < toDoPapers.Count; i++)
         {
-            StepType step = (StepType)taskIndex;
-            string description = StepTracker.Instance.StepInfo[step].Description;
-            
-            TextMeshPro tmp = toDoPapers[i];
-            tmp.alpha = 0f;
-            tmp.text = description;
+            int taskIndex = currentBlockStart + i;
 
-            yield return StartCoroutine(FadeInTMP(tmp, 1f));
-            yield return new WaitForSeconds(0.2f);
-        }
-        else
-        {
-            toDoPapers[i].text = "";
+            if (taskIndex < StepTracker.Instance.StepInfo.Count)
+            {
+                string description = StepTracker.Instance.StepInfo[taskIndex].description;
+                
+                TextMeshPro tmp = toDoPapers[i];
+                tmp.alpha = 0f;
+                tmp.text = description;
+
+                yield return StartCoroutine(FadeInTMP(tmp, 1f));
+                yield return new WaitForSeconds(0.2f);
+            }
+            else
+            {
+                toDoPapers[i].text = "";
+            }
         }
     }
-}
 
 
     private IEnumerator FadeInTMP(TextMeshPro tmp, float duration)
