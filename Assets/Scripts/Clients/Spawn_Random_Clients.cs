@@ -1,11 +1,15 @@
-using UnityEngine;
+using System;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventReceiver
 {
     public Transform[] spawnPoints;
     public GameObject clientPrefab;
-    public Transform clientPathParent;
+    public Transform clientArrivalPath;
+    [FormerlySerializedAs("clientDestinationPath")] public Transform clientDeparturePath;
 
     void Start()
     {
@@ -14,10 +18,10 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
 
     public void OnClientPlaceIsFree(ClientPlaceToTakeElixir clientPlace)
     {
-        SpawnClient(clientPlace.GetPositionWhereClientHasToGo());
+        SpawnClient(clientPlace);
     }
 
-    void SpawnClient(Transform finalTargetPosition)
+    void SpawnClient(ClientPlaceToTakeElixir clientPLace)
     {
         if (spawnPoints.Length == 0 || clientPrefab == null)
         {
@@ -35,7 +39,7 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
         ramdomizeClient(newClient);
 
         // Set up the client mover
-        ClientMoverSetup(newClient, finalTargetPosition);
+        ClientControllerSetup(newClient, clientPLace);
     }
 
     void ramdomizeClient(GameObject client)
@@ -43,7 +47,6 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
         FishManDemoLP fishManDemo = client.GetComponentInChildren<FishManDemoLP>();
         if (fishManDemo != null)
         {
-            Debug.Log("Randomizing FishManDemoLP for new client.");
             fishManDemo.Randomize();
         }
     }
@@ -54,18 +57,22 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
         client.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
     }
 
-    void ClientMoverSetup(GameObject client, Transform finalTargetPosition)
+    void ClientControllerSetup(GameObject client, ClientPlaceToTakeElixir clientPlace)
     {
-        ClientMover mover = client.GetComponent<ClientMover>();
-        if (mover != null && clientPathParent != null)
-        {
-            Transform[] targets = clientPathParent.GetComponentsInChildren<Transform>()
-                                                .Where(t => t != clientPathParent)
-                                                .Concat(new[] { finalTargetPosition })
-                                                .ToArray();
+        Transform finalTargetPosition = clientPlace.GetPositionWhereClientHasToGo();
+        ClientController clientController = client.GetComponent<ClientController>();
+        clientController.SetPlaceToTakeElixir(clientPlace);
 
-            Debug.Log($"Found {targets.Length} targets for client movement.");
-            mover.targets = targets;
-        }
+        Transform[] arrivalTargets = clientArrivalPath.GetComponentsInChildren<Transform>()
+            .Where(t => t != clientArrivalPath)
+            .Concat(new[] { finalTargetPosition })
+            .ToArray();
+
+        clientController.SetArrivalPathTargets(arrivalTargets);
+        
+        Transform[] departureTargets = clientDeparturePath.GetComponentsInChildren<Transform>()
+            .Where(t => t != clientDeparturePath)
+            .ToArray();
+        clientController.SetDeparturePathTargets(departureTargets);
     }
 }
