@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ClientController : ElixirIsReadySubscriber
 {
     public float speed = 1.5f;
+    [FormerlySerializedAs("bubblePositionExeptTarget")] public Transform bubblePositionExceptY;
+    public GameObject bubblePrefab;
     
     private ClientPlaceToTakeElixir placeToTakeElixir;
     private Transform[] pathTargets;
@@ -95,8 +98,7 @@ public class ClientController : ElixirIsReadySubscriber
                 }
                 else
                 {
-                    _hasLeavedTheBar = true;
-                    _isAtTheBar = true;
+                    HasReachedTheBar();
                 }
             }
         }
@@ -109,5 +111,18 @@ public class ClientController : ElixirIsReadySubscriber
         currentTargetIndex = 0;
         _isAtTheBar = false;
         if (animator is not null) animator.SetTrigger("Walk");
+        Destroy(bubblePrefab);
+    }
+
+    private void HasReachedTheBar()
+    {
+        _hasLeavedTheBar = true;
+        _isAtTheBar = true;
+        bubblePrefab = Instantiate(bubblePrefab, Vector3.zero, Quaternion.identity);
+        var yPosition = transform.position.y + GetComponent<Collider>().bounds.size.y + bubblePrefab.transform.localScale.y/5;
+        var position = new Vector3(bubblePositionExceptY.position.x, yPosition, bubblePositionExceptY.position.z);
+        bubblePrefab.transform.position = position;
+        bubblePrefab.transform.SetParent(bubblePositionExceptY);
     }
 }
+    
