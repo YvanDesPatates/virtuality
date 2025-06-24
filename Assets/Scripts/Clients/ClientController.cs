@@ -5,8 +5,10 @@ using UnityEngine.Serialization;
 public class ClientController : ElixirIsReadySubscriber
 {
     public float speed = 1.5f;
-    [FormerlySerializedAs("bubblePositionExeptTarget")] public Transform bubblePositionExceptY;
+    public Transform bubblePositionExceptY;
     public GameObject bubblePrefab;
+    public AudioSource angryTauntAudioSource;
+    public AudioSource happyTauntAudioSource;
     
     private ClientPlaceToTakeElixir placeToTakeElixir;
     private Transform[] pathTargets;
@@ -109,12 +111,9 @@ public class ClientController : ElixirIsReadySubscriber
 
     private void TakeElixir()
     {
-        placeToTakeElixir.TakeElixir(_elixirToAskFor);
-        pathTargets = departurePathTargets;
-        currentTargetIndex = 0;
-        _isAtTheBar = false;
-        if (animator is not null) animator.SetTrigger("Walk");
+        var goodElixirWasTaken = placeToTakeElixir.TakeElixir(_elixirToAskFor);
         Destroy(bubblePrefab);
+        StartCoroutine(PlayElixirTakenAnimation(goodElixirWasTaken));
     }
 
     private void HasReachedTheBar()
@@ -136,6 +135,56 @@ public class ClientController : ElixirIsReadySubscriber
         bubblePrefab.transform.SetParent(bubblePositionExceptY);
         yield return new WaitForSeconds(delayInSeconds);
         bubblePrefab.SetActive(true);
+    }
+
+    private IEnumerator PlayElixirTakenAnimation(bool elixirIsGood)
+    {
+        if (elixirIsGood)
+        {
+            yield return StartCoroutine(PlayGoodElixirTakenAnimation());
+        }
+        else
+        {
+            yield return StartCoroutine(PlayBadElixirTakenAnimation());
+        }
+        
+        pathTargets = departurePathTargets;
+        currentTargetIndex = 0;
+        _isAtTheBar = false;
+        if (animator is not null) animator.SetTrigger("Walk");
+    }
+
+    private IEnumerator PlayBadElixirTakenAnimation()
+    {
+        if (animator is null) yield break;
+        
+        PlayAudioSourceWithRandomPitch(angryTauntAudioSource);
+        animator.SetTrigger("Taunt");
+        
+        yield return new WaitForSeconds(5f);
+    }
+
+    private IEnumerator PlayGoodElixirTakenAnimation()
+    {
+        if (animator is null) yield break;
+        
+        PlayAudioSourceWithRandomPitch(happyTauntAudioSource);
+        if (Random.Range(1, 3)==1)
+        { 
+            animator.SetTrigger("Attack1");
+            yield return new WaitForSeconds(2f);
+        }
+        else
+        {
+            animator.SetTrigger("Attack2");
+            yield return new WaitForSeconds(2.5f);
+        }
+    }
+
+    private void PlayAudioSourceWithRandomPitch(AudioSource audioSource)
+    {
+        audioSource.pitch = Random.Range(0.4f, 1.6f);
+        audioSource.Play();
     }
 }
     
