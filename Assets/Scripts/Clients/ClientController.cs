@@ -14,7 +14,8 @@ public class ClientController : ElixirIsReadySubscriber
     private Transform[] departurePathTargets;
     private int currentTargetIndex = 0;
     private Animator animator;
-    
+
+    private IngredientType _elixirToAskFor;
     private bool _isAtTheBar = false;
     private bool _hasLeavedTheBar = false;
     private bool _elixirIsReady = false;
@@ -54,6 +55,7 @@ public class ClientController : ElixirIsReadySubscriber
         {
             animator.SetTrigger("Walk");
         }
+        _elixirToAskFor = RandomElixirPicker.GetRandomElixirIndex();
     }
     void Update()
     {
@@ -107,7 +109,7 @@ public class ClientController : ElixirIsReadySubscriber
 
     private void TakeElixir()
     {
-        placeToTakeElixir.TakeElixir(IngredientType.Elixir1);
+        placeToTakeElixir.TakeElixir(_elixirToAskFor);
         pathTargets = departurePathTargets;
         currentTargetIndex = 0;
         _isAtTheBar = false;
