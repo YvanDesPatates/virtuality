@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -118,11 +119,19 @@ public class ClientController : ElixirIsReadySubscriber
     {
         _hasLeavedTheBar = true;
         _isAtTheBar = true;
+        StartCoroutine(SpawnBubble(3f));
+    }
+
+    private IEnumerator SpawnBubble(float delayInSeconds)
+    {
         bubblePrefab = Instantiate(bubblePrefab, Vector3.zero, Quaternion.identity);
+        bubblePrefab.SetActive(false);
         var yPosition = transform.position.y + GetComponent<Collider>().bounds.size.y + bubblePrefab.transform.localScale.y/5;
         var position = new Vector3(bubblePositionExceptY.position.x, yPosition, bubblePositionExceptY.position.z);
         bubblePrefab.transform.position = position;
         bubblePrefab.transform.SetParent(bubblePositionExceptY);
+        yield return new WaitForSeconds(delayInSeconds);
+        bubblePrefab.SetActive(true);
     }
 }
     
