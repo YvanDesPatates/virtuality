@@ -8,8 +8,15 @@ public class StepTracker : MonoBehaviour
     [SerializeField] private ToDoListController toDoListController;
 
     public List<StepData> StepInfo { get; private set; } = new();
+    private List<IEndOfTutoToDoList> subscribers = new();
     private int currentStepIndex = 0;
 
+    public static void SubscribeToEndOfTuto(IEndOfTutoToDoList subscriber)
+    {
+        if (Instance == null) return;
+        Instance.subscribers.Add(subscriber);
+    }
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -44,6 +51,13 @@ public class StepTracker : MonoBehaviour
         {
             toDoListController.UpdateToDoList();
             currentStepIndex++;
+            if (currentStepIndex >= StepInfo.Count)
+            {
+                foreach (var subscriber in subscribers)
+                {
+                    subscriber.OnTutoToDoListIsCompleted();
+                }
+            }
         }
     }
 

@@ -1,28 +1,51 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventReceiver
+public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventReceiver, IEndOfTutoToDoList
 {
     public Transform[] spawnPoints;
     public GameObject clientPrefab;
     public Transform clientArrivalPath;
     [FormerlySerializedAs("clientDestinationPath")] public Transform clientDeparturePath;
+    
+    private bool canSpawn = false;
+    private HashSet<ClientPlaceToTakeElixir> freeClientPLaces = new();
 
     void Start()
     {
         ClientPlaceIsFreeSingleton.Subscribe(this);
+        StepTracker.SubscribeToEndOfTuto(this);
+    }
+    
+    void Update()
+    {
+        if (canSpawn && freeClientPLaces.Count > 0)
+        {
+            ClientPlaceToTakeElixir clientPlace = freeClientPLaces.First();
+            freeClientPLaces.Remove(clientPlace);
+            SpawnClient(clientPlace);
+            StartCoroutine(StartSpawnerCooldown());
+        }
     }
 
     public void OnClientPlaceIsFree(ClientPlaceToTakeElixir clientPlace)
     {
-        SpawnClient(clientPlace);
+        freeClientPLaces.Add(clientPlace);
+    }
+
+    public void OnTutoToDoListIsCompleted()
+    {
+        canSpawn = true;
     }
 
     void SpawnClient(ClientPlaceToTakeElixir clientPLace)
     {
+        if ( ! canSpawn) return;
+
         if (spawnPoints.Length == 0 || clientPrefab == null)
         {
             Debug.LogWarning("No spawn points or client prefab assigned.");
@@ -75,4 +98,12 @@ public class Spawn_Random_Clients : MonoBehaviour, I_ClientPlaceIsFreeEventRecei
             .ToArray();
         clientController.SetDeparturePathTargets(departureTargets);
     }
+
+    private IEnumerator StartSpawnerCooldown()
+    {
+        canSpawn = false;
+        yield return new WaitForSeconds(10f);
+        canSpawn = true;
+    }
+    
 }
