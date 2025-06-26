@@ -141,17 +141,18 @@ public class ClientController : ElixirIsReadySubscriber
     {
         if (elixirIsGood)
         {
-            yield return StartCoroutine(PlayGoodElixirTakenAnimation());
+            // yield return StartCoroutine(PlayGoodElixirTakenAnimation());
         }
         else
         {
-            yield return StartCoroutine(PlayBadElixirTakenAnimation());
+            // yield return StartCoroutine(PlayBadElixirTakenAnimation());
         }
         
         pathTargets = departurePathTargets;
         currentTargetIndex = 0;
         _isAtTheBar = false;
         if (animator is not null) animator.SetTrigger("Walk");
+        yield break;
     }
 
     private IEnumerator PlayBadElixirTakenAnimation()
