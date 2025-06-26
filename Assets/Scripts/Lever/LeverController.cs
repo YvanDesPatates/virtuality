@@ -31,6 +31,7 @@ public class LeverController : MonoBehaviour
         {
             handleBarReachedMaxAngle = false;
             leverAction.LeverWasPulled();
+            StepTracker.Instance.StepCompleted(StepType.PullLever);
             lever_pushed_sound.Play();
         }
     }
