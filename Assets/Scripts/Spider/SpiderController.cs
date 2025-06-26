@@ -9,6 +9,7 @@ public class SpiderController : MonoBehaviour
     public float jumpCooldown = 5f;
 
     public GameObject dropPrefab;
+    public Transform dropSpawner;
     public float dropCooldown = 2f;
     private bool canDrop = true;
 
@@ -78,11 +79,6 @@ public class SpiderController : MonoBehaviour
         // Réinitialise la vitesse
         rb.linearVelocity = Vector3.zero;
 
-        if (animator != null)
-        {
-            animator.SetTrigger("goAir");
-        }
-
         // Forces aléatoires
         float jumpForce = Random.Range(jumpForceMin, jumpForceMax);
         float forwardForce = Random.Range(forwardForceMin, forwardForceMax);
@@ -99,7 +95,6 @@ public class SpiderController : MonoBehaviour
 
     void ResetJump()
     {
-        animator.SetTrigger("goGround");
         canJump = true;
     }
 
@@ -110,8 +105,7 @@ public class SpiderController : MonoBehaviour
 
     void DropCube()
     {
-        GameObject drop = Instantiate(dropPrefab, transform.position + Vector3.down * 0.05f, Quaternion.identity);
-        Rigidbody dropRb = drop.GetComponent<Rigidbody>();
+        Instantiate(dropPrefab, dropSpawner.position + Vector3.down * 0.05f, Quaternion.identity);
     }
 
 }
