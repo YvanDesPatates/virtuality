@@ -33,7 +33,7 @@ public class CaldronMerger : MonoBehaviour
     public void FinishRecipe()
     {
         if (_recipeResult is not null || _ingredients.IsEmpty()) return;
-        
+
         var ingredientList = _ingredients.AddIngredient(IngredientType.Caldron);
         var ingredientResult = _recipesManager.GetRecipeResult(ingredientList);
         if (ingredientResult is not null)
@@ -44,6 +44,7 @@ public class CaldronMerger : MonoBehaviour
         {
             OnRecipeFail();
         }
+        StepTracker.Instance.StepCompleted(StepType.StirMixture);
     }
 
     public void OnRotationMaxAngleReached()
@@ -88,11 +89,37 @@ public class CaldronMerger : MonoBehaviour
                 particle = bubblesParticle.main;
                 particle.maxParticles = 2;
             }
-            _ingredients.AddIngredient(abstractIngredient.GetIngredientType());
+
+            var ingredientType = abstractIngredient.GetIngredientType();
+            _ingredients.AddIngredient(ingredientType);
+            
+            CheckToDoList(ingredientType);
+
             _recipeResult = null;
             successAndFailEffects.StopSuccessEffects();
             successAndFailEffects.StopFailEffects();
             Destroy(other.gameObject);
+        }
+    }
+
+    private void CheckToDoList(IngredientType ingredient)
+    {
+        switch (ingredient)
+        {
+            case IngredientType.LysFlower:
+                StepTracker.Instance.StepCompleted(StepType.AddWatermelon);
+                break;
+
+            case IngredientType.CuttedLysFlower:
+                StepTracker.Instance.StepCompleted(StepType.PutSlice);
+                break;
+
+            case IngredientType.Bone:
+                StepTracker.Instance.StepCompleted(StepType.AddBone);
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -152,6 +179,7 @@ public class CaldronMerger : MonoBehaviour
         caldronShaderController.OnCaldronEmptied();
         StopBubbles();
         successAndFailEffects.StopSuccessEffects();
+        StepTracker.Instance.StepCompleted(StepType.FillFlask);
     }
 
     private bool CaldronIsNotAvailable()

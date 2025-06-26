@@ -10,6 +10,8 @@ public class GrabInteractableReturnToPoint : XRGrabInteractable
     [SerializeField] private float fluctuationCoefficient = 0.2f;
     
     private bool _isReturning = false;
+
+    [SerializeField] private ToDoListController toDoListController;
     
 
     // Update is called once per frame
@@ -48,6 +50,9 @@ public class GrabInteractableReturnToPoint : XRGrabInteractable
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
+
+        StepTracker.Instance.StepCompleted(StepType.FindRecipe);
+        toDoListController.HasFoundRecipe();
         
         _isReturning = true;
     }

@@ -81,6 +81,10 @@ public class CuttingBoardController : MonoBehaviour
         if (ingredientResult != null)
         {
             successAndFailEffects.PlaySuccessSoundAndEffects();
+            if (ingredientResult.GetComponent<AbstractIngredient>().GetIngredientType() == IngredientType.CuttedLysFlower)
+            {
+                StepTracker.Instance.StepCompleted(StepType.CutWatermelon);
+            }
             canStopSuccesEffect = false;
             StartCoroutine(ResetLastCuttedIngredientGaveAResultCoroutine());
             Instantiate(ingredientResult, ingredientTransform.position, Quaternion.identity);
