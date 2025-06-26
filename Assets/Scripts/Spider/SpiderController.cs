@@ -9,6 +9,7 @@ public class SpiderController : MonoBehaviour
     public float jumpCooldown = 5f;
 
     public GameObject dropPrefab;
+    public Transform dropSpawner;
     public float dropCooldown = 2f;
     private bool canDrop = true;
 
@@ -104,8 +105,7 @@ public class SpiderController : MonoBehaviour
 
     void DropCube()
     {
-        GameObject drop = Instantiate(dropPrefab, transform.position + Vector3.down * 0.05f, Quaternion.identity);
-        Rigidbody dropRb = drop.GetComponent<Rigidbody>();
+        Instantiate(dropPrefab, dropSpawner.position + Vector3.down * 0.05f, Quaternion.identity);
     }
 
 }
