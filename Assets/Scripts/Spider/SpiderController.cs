@@ -78,11 +78,6 @@ public class SpiderController : MonoBehaviour
         // Réinitialise la vitesse
         rb.linearVelocity = Vector3.zero;
 
-        if (animator != null)
-        {
-            animator.SetTrigger("goAir");
-        }
-
         // Forces aléatoires
         float jumpForce = Random.Range(jumpForceMin, jumpForceMax);
         float forwardForce = Random.Range(forwardForceMin, forwardForceMax);
@@ -99,7 +94,6 @@ public class SpiderController : MonoBehaviour
 
     void ResetJump()
     {
-        animator.SetTrigger("goGround");
         canJump = true;
     }
 
